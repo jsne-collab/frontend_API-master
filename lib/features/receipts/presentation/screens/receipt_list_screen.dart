@@ -8,6 +8,7 @@ import '../../../../core/widgets/app_card.dart';
 import '../../domain/receipt_model.dart';
 import '../../domain/receipt_provider.dart';
 import '../../../../core/network/error_message.dart';
+import '../../../../core/widgets/skeleton.dart';
 
 class ReceiptListScreen extends ConsumerWidget {
   const ReceiptListScreen({super.key});
@@ -22,7 +23,7 @@ class ReceiptListScreen extends ConsumerWidget {
         child: RefreshIndicator(
           onRefresh: () => ref.read(myReceiptsProvider.notifier).refresh(),
           child: receiptsAsync.when(
-            loading: () => const Center(child: CircularProgressIndicator()),
+            loading: () => const SkeletonList(),
             error: (error, _) => _ErrorState(
               message: friendlyErrorMessage(error),
               onRetry: () => ref.read(myReceiptsProvider.notifier).refresh(),

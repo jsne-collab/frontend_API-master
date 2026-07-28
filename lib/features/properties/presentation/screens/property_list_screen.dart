@@ -11,6 +11,7 @@ import '../../../../core/widgets/status_badge.dart';
 import '../../domain/property_model.dart';
 import '../../domain/property_provider.dart';
 import '../../../../core/network/error_message.dart';
+import '../../../../core/widgets/skeleton.dart';
 
 class PropertyListScreen extends ConsumerWidget {
   const PropertyListScreen({super.key});
@@ -32,7 +33,7 @@ class PropertyListScreen extends ConsumerWidget {
         child: RefreshIndicator(
           onRefresh: () => ref.read(myPropertiesProvider.notifier).refresh(),
           child: propertiesAsync.when(
-            loading: () => const Center(child: CircularProgressIndicator()),
+            loading: () => const SkeletonList(),
             error: (error, _) => _ErrorState(
               message: friendlyErrorMessage(error),
               onRetry: () => ref.read(myPropertiesProvider.notifier).refresh(),

@@ -19,6 +19,7 @@ import '../widgets/kpi_card.dart';
 import '../widgets/quick_links.dart';
 import '../widgets/revenue_chart.dart';
 import '../../../../core/network/error_message.dart';
+import '../../../../core/widgets/skeleton.dart';
 
 // Biens/Baux/Paiements/Messages sont déjà dans la barre de navigation ;
 // ces accès rapides couvrent le reste (pas assez de place pour 6+ onglets).
@@ -99,7 +100,7 @@ class OwnerDashboardScreen extends ConsumerWidget {
             ref.invalidate(revenueChartProvider);
           },
           child: dashboardAsync.when(
-            loading: () => const Center(child: CircularProgressIndicator()),
+            loading: () => const SkeletonList(),
             error: (error, _) => ListView(
               children: [
                 Padding(
@@ -435,7 +436,7 @@ class _ExpensesSection extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           expensesAsync.when(
-            loading: () => const Center(child: CircularProgressIndicator()),
+            loading: () => const SkeletonList(),
             error: (error, _) => Text(
               friendlyErrorMessage(error),
               style: const TextStyle(color: AppColors.error),

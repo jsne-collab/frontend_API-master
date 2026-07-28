@@ -8,6 +8,7 @@ import '../../../../core/widgets/app_card.dart';
 import '../../domain/notification_model.dart';
 import '../../domain/notification_provider.dart';
 import '../../../../core/network/error_message.dart';
+import '../../../../core/widgets/skeleton.dart';
 
 class NotificationsScreen extends ConsumerWidget {
   const NotificationsScreen({super.key});
@@ -47,7 +48,7 @@ class NotificationsScreen extends ConsumerWidget {
         child: RefreshIndicator(
           onRefresh: () => ref.read(notificationsProvider.notifier).refresh(),
           child: notificationsAsync.when(
-            loading: () => const Center(child: CircularProgressIndicator()),
+            loading: () => const SkeletonList(),
             error: (error, _) => ListView(
               children: [
                 Padding(

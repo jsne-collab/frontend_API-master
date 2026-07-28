@@ -14,6 +14,7 @@ import '../../../receipts/domain/receipt_provider.dart';
 import '../../domain/payment_model.dart';
 import '../../domain/payment_provider.dart';
 import '../../../../core/network/error_message.dart';
+import '../../../../core/widgets/skeleton.dart';
 
 final _currency = NumberFormat.currency(
   locale: 'fr_FR',
@@ -73,7 +74,7 @@ class _PaymentDetailScreenState extends ConsumerState<PaymentDetailScreen> {
       backgroundColor: AppColors.background,
       body: SafeArea(
         child: paymentAsync.when(
-          loading: () => const Center(child: CircularProgressIndicator()),
+          loading: () => const SkeletonList(),
           error: (error, _) => Padding(
             padding: const EdgeInsets.all(32),
             child: Center(

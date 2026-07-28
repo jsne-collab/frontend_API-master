@@ -11,6 +11,7 @@ import '../../../auth/domain/auth_provider.dart';
 import '../../domain/lease_model.dart';
 import '../../domain/lease_provider.dart';
 import '../../../../core/network/error_message.dart';
+import '../../../../core/widgets/skeleton.dart';
 
 class LeaseDetailScreen extends ConsumerStatefulWidget {
   const LeaseDetailScreen({super.key, required this.leaseId});
@@ -127,7 +128,7 @@ class _LeaseDetailScreenState extends ConsumerState<LeaseDetailScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Détail du bail')),
       body: leaseAsync.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading: () => const SkeletonList(),
         error: (error, _) => Center(child: Text(friendlyErrorMessage(error))),
         data: (lease) {
           final isOwner = lease.owner.id == currentUserId;

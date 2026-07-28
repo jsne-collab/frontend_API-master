@@ -14,6 +14,7 @@ import '../../../auth/domain/user_model.dart';
 import '../../domain/payment_model.dart';
 import '../../domain/payment_provider.dart';
 import '../../../../core/network/error_message.dart';
+import '../../../../core/widgets/skeleton.dart';
 
 final _currency = NumberFormat.currency(
   locale: 'fr_FR',
@@ -52,7 +53,7 @@ class PaymentListScreen extends ConsumerWidget {
             ref.invalidate(paymentStatsProvider);
           },
           child: paymentsAsync.when(
-            loading: () => const Center(child: CircularProgressIndicator()),
+            loading: () => const SkeletonList(),
             error: (error, _) => ListView(
               children: [
                 Padding(

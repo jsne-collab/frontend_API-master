@@ -10,6 +10,7 @@ import '../../../auth/domain/auth_provider.dart';
 import '../../domain/message_model.dart';
 import '../../domain/message_provider.dart';
 import '../../../../core/network/error_message.dart';
+import '../../../../core/widgets/skeleton.dart';
 
 class MessageThreadScreen extends ConsumerStatefulWidget {
   const MessageThreadScreen({
@@ -81,7 +82,7 @@ class _MessageThreadScreenState extends ConsumerState<MessageThreadScreen> {
           children: [
             Expanded(
               child: messagesAsync.when(
-                loading: () => const Center(child: CircularProgressIndicator()),
+                loading: () => const SkeletonList(),
                 error: (error, _) => Center(
                   child: Text(
                     friendlyErrorMessage(error),

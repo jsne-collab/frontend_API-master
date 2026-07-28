@@ -11,6 +11,7 @@ import '../../../../core/widgets/app_scaffold.dart';
 import '../../domain/message_model.dart';
 import '../../domain/message_provider.dart';
 import '../../../../core/network/error_message.dart';
+import '../../../../core/widgets/skeleton.dart';
 
 class ConversationsListScreen extends ConsumerStatefulWidget {
   const ConversationsListScreen({super.key});
@@ -56,7 +57,7 @@ class _ConversationsListScreenState
         child: RefreshIndicator(
           onRefresh: () => ref.read(conversationsProvider.notifier).refresh(),
           child: conversationsAsync.when(
-            loading: () => const Center(child: CircularProgressIndicator()),
+            loading: () => const SkeletonList(),
             error: (error, _) => ListView(
               children: [
                 Padding(

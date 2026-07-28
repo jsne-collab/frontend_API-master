@@ -9,6 +9,7 @@ import '../../../auth/domain/user_model.dart';
 import '../../../leases/domain/lease_model.dart';
 import '../../../leases/domain/lease_provider.dart';
 import '../../../../core/network/error_message.dart';
+import '../../../../core/widgets/skeleton.dart';
 
 /// Sélection d'un interlocuteur pour démarrer une conversation — limité
 /// aux propriétaires/locataires liés par un bail (comme imposé côté API).
@@ -25,7 +26,7 @@ class NewConversationScreen extends ConsumerWidget {
       appBar: AppBar(title: const Text('Nouveau message')),
       body: SafeArea(
         child: leasesAsync.when(
-          loading: () => const Center(child: CircularProgressIndicator()),
+          loading: () => const SkeletonList(),
           error: (error, _) => Center(
             child: Text(
               friendlyErrorMessage(error),

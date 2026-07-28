@@ -16,6 +16,7 @@ import '../../../payments/domain/payment_model.dart';
 import '../../domain/dashboard_model.dart';
 import '../../domain/dashboard_provider.dart';
 import '../../../../core/network/error_message.dart';
+import '../../../../core/widgets/skeleton.dart';
 
 final _currency = NumberFormat.currency(
   locale: 'fr_FR',
@@ -83,7 +84,7 @@ class TenantDashboardScreen extends ConsumerWidget {
         child: RefreshIndicator(
           onRefresh: () => ref.read(tenantDashboardProvider.notifier).refresh(),
           child: dashboardAsync.when(
-            loading: () => const Center(child: CircularProgressIndicator()),
+            loading: () => const SkeletonList(),
             error: (error, _) => ListView(
               children: [
                 Padding(

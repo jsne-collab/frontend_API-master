@@ -11,6 +11,7 @@ import '../../../auth/domain/user_model.dart';
 import '../../domain/maintenance_model.dart';
 import '../../domain/maintenance_provider.dart';
 import '../../../../core/network/error_message.dart';
+import '../../../../core/widgets/skeleton.dart';
 
 class MaintenanceDetailScreen extends ConsumerStatefulWidget {
   const MaintenanceDetailScreen({super.key, required this.requestId});
@@ -94,7 +95,7 @@ class _MaintenanceDetailScreenState
       appBar: AppBar(title: const Text('Demande de maintenance')),
       body: SafeArea(
         child: requestAsync.when(
-          loading: () => const Center(child: CircularProgressIndicator()),
+          loading: () => const SkeletonList(),
           error: (error, _) => Center(
             child: Text(
               friendlyErrorMessage(error),

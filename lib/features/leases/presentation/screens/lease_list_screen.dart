@@ -12,6 +12,7 @@ import '../../../auth/domain/user_model.dart';
 import '../../domain/lease_model.dart';
 import '../../domain/lease_provider.dart';
 import '../../../../core/network/error_message.dart';
+import '../../../../core/widgets/skeleton.dart';
 
 class LeaseListScreen extends ConsumerWidget {
   const LeaseListScreen({super.key});
@@ -37,7 +38,7 @@ class LeaseListScreen extends ConsumerWidget {
         child: RefreshIndicator(
           onRefresh: () => ref.read(myLeasesProvider.notifier).refresh(),
           child: leasesAsync.when(
-            loading: () => const Center(child: CircularProgressIndicator()),
+            loading: () => const SkeletonList(),
             error: (error, _) => _ErrorState(
               message: friendlyErrorMessage(error),
               onRetry: () => ref.read(myLeasesProvider.notifier).refresh(),
