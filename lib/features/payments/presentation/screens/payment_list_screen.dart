@@ -13,6 +13,7 @@ import '../../../auth/domain/auth_provider.dart';
 import '../../../auth/domain/user_model.dart';
 import '../../domain/payment_model.dart';
 import '../../domain/payment_provider.dart';
+import '../../../../core/network/error_message.dart';
 
 final _currency = NumberFormat.currency(
   locale: 'fr_FR',
@@ -58,7 +59,7 @@ class PaymentListScreen extends ConsumerWidget {
                   padding: const EdgeInsets.all(32),
                   child: Center(
                     child: Text(
-                      error.toString(),
+                      friendlyErrorMessage(error),
                       style: const TextStyle(color: AppColors.error),
                     ),
                   ),
@@ -198,7 +199,7 @@ class _HeroPaymentsCard extends StatelessWidget {
           ),
         ),
         error: (error, _) => Text(
-          error.toString(),
+          friendlyErrorMessage(error),
           style: const TextStyle(color: Colors.white),
         ),
         data: (stats) => Column(

@@ -11,6 +11,7 @@ import '../../../auth/domain/auth_provider.dart';
 import '../../../auth/domain/user_model.dart';
 import '../../domain/maintenance_model.dart';
 import '../../domain/maintenance_provider.dart';
+import '../../../../core/network/error_message.dart';
 
 enum _StatusFilter { all, newRequest, inProgress, resolved }
 
@@ -83,7 +84,7 @@ class _MaintenanceListScreenState
                         padding: const EdgeInsets.all(32),
                         child: Center(
                           child: Text(
-                            error.toString(),
+                            friendlyErrorMessage(error),
                             style: const TextStyle(color: AppColors.error),
                           ),
                         ),

@@ -12,6 +12,7 @@ import '../../../../core/widgets/status_badge.dart';
 import '../../../auth/domain/auth_provider.dart';
 import '../../domain/property_model.dart';
 import '../../domain/property_provider.dart';
+import '../../../../core/network/error_message.dart';
 
 class PropertyDetailScreen extends ConsumerStatefulWidget {
   const PropertyDetailScreen({super.key, required this.propertyId});
@@ -111,7 +112,7 @@ class _PropertyDetailScreenState extends ConsumerState<PropertyDetailScreen> {
       appBar: AppBar(title: const Text('Détail du bien')),
       body: propertyAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, _) => Center(child: Text(error.toString())),
+        error: (error, _) => Center(child: Text(friendlyErrorMessage(error))),
         data: (property) {
           final isOwner = property.ownerId == currentUserId;
 

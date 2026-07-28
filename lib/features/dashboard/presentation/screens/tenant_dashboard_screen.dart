@@ -15,6 +15,7 @@ import '../../../notifications/domain/notification_provider.dart';
 import '../../../payments/domain/payment_model.dart';
 import '../../domain/dashboard_model.dart';
 import '../../domain/dashboard_provider.dart';
+import '../../../../core/network/error_message.dart';
 
 final _currency = NumberFormat.currency(
   locale: 'fr_FR',
@@ -89,7 +90,7 @@ class TenantDashboardScreen extends ConsumerWidget {
                   padding: const EdgeInsets.all(32),
                   child: Center(
                     child: Text(
-                      error.toString(),
+                      friendlyErrorMessage(error),
                       style: const TextStyle(color: AppColors.error),
                     ),
                   ),

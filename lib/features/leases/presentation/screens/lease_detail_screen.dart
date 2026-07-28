@@ -10,6 +10,7 @@ import '../../../../core/widgets/status_badge.dart';
 import '../../../auth/domain/auth_provider.dart';
 import '../../domain/lease_model.dart';
 import '../../domain/lease_provider.dart';
+import '../../../../core/network/error_message.dart';
 
 class LeaseDetailScreen extends ConsumerStatefulWidget {
   const LeaseDetailScreen({super.key, required this.leaseId});
@@ -127,7 +128,7 @@ class _LeaseDetailScreenState extends ConsumerState<LeaseDetailScreen> {
       appBar: AppBar(title: const Text('Détail du bail')),
       body: leaseAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, _) => Center(child: Text(error.toString())),
+        error: (error, _) => Center(child: Text(friendlyErrorMessage(error))),
         data: (lease) {
           final isOwner = lease.owner.id == currentUserId;
 

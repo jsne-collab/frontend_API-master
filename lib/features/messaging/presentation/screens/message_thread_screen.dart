@@ -9,6 +9,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../auth/domain/auth_provider.dart';
 import '../../domain/message_model.dart';
 import '../../domain/message_provider.dart';
+import '../../../../core/network/error_message.dart';
 
 class MessageThreadScreen extends ConsumerStatefulWidget {
   const MessageThreadScreen({
@@ -83,7 +84,7 @@ class _MessageThreadScreenState extends ConsumerState<MessageThreadScreen> {
                 loading: () => const Center(child: CircularProgressIndicator()),
                 error: (error, _) => Center(
                   child: Text(
-                    error.toString(),
+                    friendlyErrorMessage(error),
                     style: const TextStyle(color: AppColors.error),
                   ),
                 ),

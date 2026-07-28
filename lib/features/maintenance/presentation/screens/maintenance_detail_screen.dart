@@ -10,6 +10,7 @@ import '../../../auth/domain/auth_provider.dart';
 import '../../../auth/domain/user_model.dart';
 import '../../domain/maintenance_model.dart';
 import '../../domain/maintenance_provider.dart';
+import '../../../../core/network/error_message.dart';
 
 class MaintenanceDetailScreen extends ConsumerStatefulWidget {
   const MaintenanceDetailScreen({super.key, required this.requestId});
@@ -96,7 +97,7 @@ class _MaintenanceDetailScreenState
           loading: () => const Center(child: CircularProgressIndicator()),
           error: (error, _) => Center(
             child: Text(
-              error.toString(),
+              friendlyErrorMessage(error),
               style: const TextStyle(color: AppColors.error),
             ),
           ),

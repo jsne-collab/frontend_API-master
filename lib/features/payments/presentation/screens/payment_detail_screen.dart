@@ -13,6 +13,7 @@ import '../../../auth/domain/user_model.dart';
 import '../../../receipts/domain/receipt_provider.dart';
 import '../../domain/payment_model.dart';
 import '../../domain/payment_provider.dart';
+import '../../../../core/network/error_message.dart';
 
 final _currency = NumberFormat.currency(
   locale: 'fr_FR',
@@ -77,7 +78,7 @@ class _PaymentDetailScreenState extends ConsumerState<PaymentDetailScreen> {
             padding: const EdgeInsets.all(32),
             child: Center(
               child: Text(
-                error.toString(),
+                friendlyErrorMessage(error),
                 style: const TextStyle(color: AppColors.error),
               ),
             ),

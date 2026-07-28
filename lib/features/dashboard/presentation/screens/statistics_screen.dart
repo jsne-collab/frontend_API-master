@@ -7,6 +7,7 @@ import '../../../../core/widgets/status_badge.dart';
 import '../../domain/dashboard_model.dart';
 import '../../domain/dashboard_provider.dart';
 import '../widgets/revenue_chart.dart';
+import '../../../../core/network/error_message.dart';
 
 class StatisticsScreen extends ConsumerWidget {
   const StatisticsScreen({super.key});
@@ -38,7 +39,7 @@ class StatisticsScreen extends ConsumerWidget {
                       child: Center(child: CircularProgressIndicator()),
                     ),
                     error: (error, _) => Text(
-                      error.toString(),
+                      friendlyErrorMessage(error),
                       style: const TextStyle(color: AppColors.error),
                     ),
                     data: (points) => points.isEmpty
@@ -63,7 +64,7 @@ class StatisticsScreen extends ConsumerWidget {
               error: (error, _) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 24),
                 child: Text(
-                  error.toString(),
+                  friendlyErrorMessage(error),
                   style: const TextStyle(color: AppColors.error),
                 ),
               ),

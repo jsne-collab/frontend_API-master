@@ -13,6 +13,7 @@ import '../../../leases/domain/lease_model.dart';
 import '../../../leases/domain/lease_provider.dart';
 import '../../domain/maintenance_model.dart';
 import '../../domain/maintenance_provider.dart';
+import '../../../../core/network/error_message.dart';
 
 class MaintenanceCreateScreen extends ConsumerStatefulWidget {
   const MaintenanceCreateScreen({super.key});
@@ -110,7 +111,7 @@ class _MaintenanceCreateScreenState
                 const SizedBox(height: 8),
                 leasesAsync.when(
                   loading: () => const CircularProgressIndicator(),
-                  error: (error, _) => Text(error.toString()),
+                  error: (error, _) => Text(friendlyErrorMessage(error)),
                   data: (leases) {
                     final activeLeases = leases
                         .where((lease) => lease.status == LeaseStatus.active)

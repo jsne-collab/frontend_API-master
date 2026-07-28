@@ -7,6 +7,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/app_card.dart';
 import '../../domain/notification_model.dart';
 import '../../domain/notification_provider.dart';
+import '../../../../core/network/error_message.dart';
 
 class NotificationsScreen extends ConsumerWidget {
   const NotificationsScreen({super.key});
@@ -53,7 +54,7 @@ class NotificationsScreen extends ConsumerWidget {
                   padding: const EdgeInsets.all(32),
                   child: Center(
                     child: Text(
-                      error.toString(),
+                      friendlyErrorMessage(error),
                       style: const TextStyle(color: AppColors.error),
                     ),
                   ),

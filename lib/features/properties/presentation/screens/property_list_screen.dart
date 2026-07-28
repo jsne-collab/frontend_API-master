@@ -10,6 +10,7 @@ import '../../../../core/widgets/app_scaffold.dart';
 import '../../../../core/widgets/status_badge.dart';
 import '../../domain/property_model.dart';
 import '../../domain/property_provider.dart';
+import '../../../../core/network/error_message.dart';
 
 class PropertyListScreen extends ConsumerWidget {
   const PropertyListScreen({super.key});
@@ -33,7 +34,7 @@ class PropertyListScreen extends ConsumerWidget {
           child: propertiesAsync.when(
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (error, _) => _ErrorState(
-              message: error.toString(),
+              message: friendlyErrorMessage(error),
               onRetry: () => ref.read(myPropertiesProvider.notifier).refresh(),
             ),
             data: (properties) => properties.isEmpty

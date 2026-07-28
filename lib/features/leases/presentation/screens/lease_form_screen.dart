@@ -11,6 +11,7 @@ import '../../../auth/domain/user_model.dart';
 import '../../../properties/domain/property_model.dart';
 import '../../../properties/domain/property_provider.dart';
 import '../../domain/lease_provider.dart';
+import '../../../../core/network/error_message.dart';
 
 /// Écran unique pour créer un bail (leaseId == null) ou en modifier les
 /// conditions (leaseId renseigné : dates/loyer/caution uniquement, le bien
@@ -225,7 +226,7 @@ class _LeaseFormScreenState extends ConsumerState<LeaseFormScreen> {
                         const SizedBox(height: 8),
                         myProperties.when(
                           loading: () => const CircularProgressIndicator(),
-                          error: (error, _) => Text(error.toString()),
+                          error: (error, _) => Text(friendlyErrorMessage(error)),
                           data: (properties) =>
                               DropdownButtonFormField<Property>(
                                 initialValue: _selectedProperty,

@@ -8,6 +8,7 @@ import '../../../auth/domain/auth_provider.dart';
 import '../../../auth/domain/user_model.dart';
 import '../../../leases/domain/lease_model.dart';
 import '../../../leases/domain/lease_provider.dart';
+import '../../../../core/network/error_message.dart';
 
 /// Sélection d'un interlocuteur pour démarrer une conversation — limité
 /// aux propriétaires/locataires liés par un bail (comme imposé côté API).
@@ -27,7 +28,7 @@ class NewConversationScreen extends ConsumerWidget {
           loading: () => const Center(child: CircularProgressIndicator()),
           error: (error, _) => Center(
             child: Text(
-              error.toString(),
+              friendlyErrorMessage(error),
               style: const TextStyle(color: AppColors.error),
             ),
           ),

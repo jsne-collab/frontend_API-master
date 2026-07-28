@@ -10,6 +10,7 @@ import '../../../../core/widgets/app_card.dart';
 import '../../../../core/widgets/app_scaffold.dart';
 import '../../domain/message_model.dart';
 import '../../domain/message_provider.dart';
+import '../../../../core/network/error_message.dart';
 
 class ConversationsListScreen extends ConsumerStatefulWidget {
   const ConversationsListScreen({super.key});
@@ -62,7 +63,7 @@ class _ConversationsListScreenState
                   padding: const EdgeInsets.all(32),
                   child: Center(
                     child: Text(
-                      error.toString(),
+                      friendlyErrorMessage(error),
                       style: const TextStyle(color: AppColors.error),
                     ),
                   ),

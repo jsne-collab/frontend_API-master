@@ -11,6 +11,7 @@ import '../../../leases/domain/lease_model.dart';
 import '../../../leases/domain/lease_provider.dart';
 import '../../domain/payment_model.dart';
 import '../../domain/payment_provider.dart';
+import '../../../../core/network/error_message.dart';
 
 class PaymentInitiateScreen extends ConsumerStatefulWidget {
   const PaymentInitiateScreen({super.key});
@@ -112,7 +113,7 @@ class _PaymentInitiateScreenState extends ConsumerState<PaymentInitiateScreen> {
                 const SizedBox(height: 8),
                 leasesAsync.when(
                   loading: () => const CircularProgressIndicator(),
-                  error: (error, _) => Text(error.toString()),
+                  error: (error, _) => Text(friendlyErrorMessage(error)),
                   data: (leases) {
                     final activeLeases = leases
                         .where((lease) => lease.status == LeaseStatus.active)

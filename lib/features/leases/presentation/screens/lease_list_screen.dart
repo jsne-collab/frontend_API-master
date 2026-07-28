@@ -11,6 +11,7 @@ import '../../../auth/domain/auth_provider.dart';
 import '../../../auth/domain/user_model.dart';
 import '../../domain/lease_model.dart';
 import '../../domain/lease_provider.dart';
+import '../../../../core/network/error_message.dart';
 
 class LeaseListScreen extends ConsumerWidget {
   const LeaseListScreen({super.key});
@@ -38,7 +39,7 @@ class LeaseListScreen extends ConsumerWidget {
           child: leasesAsync.when(
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (error, _) => _ErrorState(
-              message: error.toString(),
+              message: friendlyErrorMessage(error),
               onRetry: () => ref.read(myLeasesProvider.notifier).refresh(),
             ),
             data: (leases) => leases.isEmpty
