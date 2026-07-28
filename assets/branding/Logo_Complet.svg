@@ -1,0 +1,25 @@
+<svg width="640" height="180" viewBox="0 0 640 180" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F3B66"/>
+      <stop offset="100%" stop-color="#0A2540"/>
+    </linearGradient>
+    <linearGradient id="mark" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E0BB4A"/>
+      <stop offset="100%" stop-color="#C9A227"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(20,20) scale(0.7)">
+    <rect x="0" y="0" width="200" height="200" rx="46" fill="url(#bg)"/>
+    <rect x="7" y="7" width="186" height="186" rx="40" fill="none" stroke="#C9A227" stroke-opacity="0.18" stroke-width="1.5"/>
+    <g transform="translate(0,-6)">
+      <path fill-rule="evenodd" fill="url(#mark)" d="
+        M 100 34 C 130 34 162 64 162 106 C 162 134 151 156 133 168 C 122 175 111 178 100 178 C 89 178 78 175 67 168 C 49 156 38 134 38 106 C 38 64 70 34 100 34 Z
+        M 116 90 A 16 16 0 1 0 84 90 A 16 16 0 1 0 116 90 Z
+        M 93 103 L 107 103 L 113 152 Q 113 157 108 157 L 92 157 Q 87 157 87 152 Z
+      "/>
+    </g>
+  </g>
+  <text x="185" y="103" font-family="Poppins" font-weight="700" font-size="46" fill="#0A2540">Gestion <tspan fill="#C9A227">Locative</tspan></text>
+  <text x="187" y="130" font-family="Poppins" font-weight="500" font-size="15" letter-spacing="3" fill="#6B7280">GESTION IMMOBILIÈRE, EN TOUTE CONFIANCE</text>
+</svg>
