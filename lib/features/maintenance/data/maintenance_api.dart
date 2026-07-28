@@ -10,7 +10,8 @@ class MaintenanceApi {
   Future<Map<String, dynamic>> listOwn({Map<String, dynamic>? filters}) =>
       _get('/maintenance-requests', query: filters);
 
-  Future<Map<String, dynamic>> show(int id) => _get('/maintenance-requests/$id');
+  Future<Map<String, dynamic>> show(int id) =>
+      _get('/maintenance-requests/$id');
 
   Future<Map<String, dynamic>> create(
     Map<String, dynamic> data, {

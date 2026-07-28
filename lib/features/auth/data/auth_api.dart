@@ -35,10 +35,7 @@ class AuthApi {
   Future<Map<String, dynamic>> google({
     required String idToken,
     String deviceType = 'android',
-  }) => _post('/auth/google', {
-    'id_token': idToken,
-    'device_type': deviceType,
-  });
+  }) => _post('/auth/google', {'id_token': idToken, 'device_type': deviceType});
 
   Future<Map<String, dynamic>> completeProfile({
     required String role,

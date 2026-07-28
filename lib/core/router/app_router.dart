@@ -123,10 +123,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/profile',
         builder: (context, state) => const ProfileScreen(),
       ),
-      GoRoute(
-        path: '/about',
-        builder: (context, state) => const AboutScreen(),
-      ),
+      GoRoute(path: '/about', builder: (context, state) => const AboutScreen()),
       GoRoute(
         path: '/legal/terms',
         builder: (context, state) => LegalDocumentScreen.termsOfService,

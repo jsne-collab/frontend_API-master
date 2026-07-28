@@ -69,9 +69,7 @@ class PaymentListScreen extends ConsumerWidget {
             ),
             data: (payments) {
               if (payments.isEmpty) {
-                return ListView(
-                  children: const [_EmptyState()],
-                );
+                return ListView(children: const [_EmptyState()]);
               }
 
               final groups = _groupByMonth(payments);
@@ -124,7 +122,9 @@ class PaymentListScreen extends ConsumerWidget {
     return groups.entries
         .map(
           (entry) => _MonthGroup(
-            label: _capitalize(_monthFormat.format(entry.value.first.paymentDate)),
+            label: _capitalize(
+              _monthFormat.format(entry.value.first.paymentDate),
+            ),
             payments: entry.value,
           ),
         )
@@ -154,7 +154,11 @@ class _MonthHeaderDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 36;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     return Container(
       color: AppColors.background,
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
@@ -195,9 +199,7 @@ class _HeroPaymentsCard extends StatelessWidget {
       child: statsAsync.when(
         loading: () => const SizedBox(
           height: 72,
-          child: Center(
-            child: CircularProgressIndicator(color: Colors.white),
-          ),
+          child: Center(child: CircularProgressIndicator(color: Colors.white)),
         ),
         error: (error, _) => Text(
           friendlyErrorMessage(error),
@@ -222,7 +224,10 @@ class _HeroPaymentsCard extends StatelessWidget {
             if (stats.totalPending > 0) ...[
               const SizedBox(height: 12),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: AppColors.warning.withValues(alpha: 0.25),
                   borderRadius: BorderRadius.circular(999),

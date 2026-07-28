@@ -85,9 +85,7 @@ void main() {
     expect(navBar.currentIndex, 3);
   });
 
-  testWidgets('defaults to the first tab for an unknown route', (
-    tester,
-  ) async {
+  testWidgets('defaults to the first tab for an unknown route', (tester) async {
     await tester.pumpWidget(_wrap(_ownerUser, '/some/unmapped/route'));
     await tester.pump();
 

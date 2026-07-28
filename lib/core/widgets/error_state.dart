@@ -9,7 +9,8 @@ import 'app_button.dart';
 class ErrorState extends StatelessWidget {
   const ErrorState({
     super.key,
-    this.message = 'Impossible de charger les données. Vérifie ta connexion et réessaie.',
+    this.message =
+        'Impossible de charger les données. Vérifie ta connexion et réessaie.',
     this.onRetry,
   });
 

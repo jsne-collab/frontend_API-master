@@ -107,7 +107,10 @@ class _MaintenanceCreateScreenState
                   ),
                   const SizedBox(height: 16),
                 ],
-                const Text('Bien', style: TextStyle(fontWeight: FontWeight.w600)),
+                const Text(
+                  'Bien',
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
                 const SizedBox(height: 8),
                 leasesAsync.when(
                   loading: () => const CircularProgressIndicator(),
@@ -178,7 +181,10 @@ class _MaintenanceCreateScreenState
                   },
                 ),
                 const SizedBox(height: 20),
-                const Text('Photo (optionnel)', style: TextStyle(fontWeight: FontWeight.w600)),
+                const Text(
+                  'Photo (optionnel)',
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
                 const SizedBox(height: 8),
                 if (_photo != null)
                   ClipRRect(
@@ -192,7 +198,9 @@ class _MaintenanceCreateScreenState
                   ),
                 const SizedBox(height: 8),
                 AppButton(
-                  label: _photo == null ? 'Ajouter une photo' : 'Changer la photo',
+                  label: _photo == null
+                      ? 'Ajouter une photo'
+                      : 'Changer la photo',
                   variant: AppButtonVariant.outline,
                   onPressed: _pickPhoto,
                 ),

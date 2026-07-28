@@ -105,8 +105,10 @@ class _MessageThreadScreenState extends ConsumerState<MessageThreadScreen> {
                         itemBuilder: (context, index) {
                           final message = messages[index];
                           final isMine = message.sender.id == meId;
-                          final isLastInGroup = index == messages.length - 1 ||
-                              messages[index + 1].sender.id != message.sender.id;
+                          final isLastInGroup =
+                              index == messages.length - 1 ||
+                              messages[index + 1].sender.id !=
+                                  message.sender.id;
 
                           return _MessageBubble(
                             message: message,

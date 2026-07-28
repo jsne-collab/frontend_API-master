@@ -5,7 +5,11 @@ import 'package:flutter/material.dart';
 /// (icône + nom) dès `medium`/`expanded` où la place verticale ne manque
 /// plus. Toujours `BoxFit.contain`, jamais étiré.
 class BrandedHeader extends StatelessWidget {
-  const BrandedHeader({super.key, this.compactHeight = 64, this.fullWidth = 220});
+  const BrandedHeader({
+    super.key,
+    this.compactHeight = 64,
+    this.fullWidth = 220,
+  });
 
   final double compactHeight;
   final double fullWidth;

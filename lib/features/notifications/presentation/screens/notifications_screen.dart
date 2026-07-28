@@ -163,8 +163,11 @@ class _NotificationCardState extends ConsumerState<_NotificationCard> {
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: (notification.isRead ? AppColors.textSecondary : AppColors.accent)
-                      .withValues(alpha: 0.12),
+                  color:
+                      (notification.isRead
+                              ? AppColors.textSecondary
+                              : AppColors.accent)
+                          .withValues(alpha: 0.12),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -198,7 +201,9 @@ class _NotificationCardState extends ConsumerState<_NotificationCard> {
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      DateFormat('dd/MM/yyyy HH:mm').format(notification.createdAt),
+                      DateFormat(
+                        'dd/MM/yyyy HH:mm',
+                      ).format(notification.createdAt),
                       style: const TextStyle(
                         color: AppColors.textSecondary,
                         fontSize: 11,

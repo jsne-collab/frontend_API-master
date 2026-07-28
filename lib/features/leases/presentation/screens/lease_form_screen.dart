@@ -226,7 +226,8 @@ class _LeaseFormScreenState extends ConsumerState<LeaseFormScreen> {
                         const SizedBox(height: 8),
                         myProperties.when(
                           loading: () => const CircularProgressIndicator(),
-                          error: (error, _) => Text(friendlyErrorMessage(error)),
+                          error: (error, _) =>
+                              Text(friendlyErrorMessage(error)),
                           data: (properties) =>
                               DropdownButtonFormField<Property>(
                                 initialValue: _selectedProperty,

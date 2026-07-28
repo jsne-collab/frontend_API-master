@@ -31,10 +31,7 @@ class AppCard extends StatelessWidget {
       );
     }
 
-    final card = Card(
-      clipBehavior: Clip.antiAlias,
-      child: content,
-    );
+    final card = Card(clipBehavior: Clip.antiAlias, child: content);
 
     if (onTap == null) return card;
 

@@ -65,11 +65,7 @@ class MaintenanceProperty {
 }
 
 class MaintenancePerson {
-  const MaintenancePerson({
-    required this.id,
-    required this.name,
-    this.role,
-  });
+  const MaintenancePerson({required this.id, required this.name, this.role});
 
   factory MaintenancePerson.fromJson(Map<String, dynamic> json) {
     return MaintenancePerson(
@@ -141,7 +137,9 @@ class MaintenanceRequestModel {
       photoUrl: json['photo_url'] as String?,
       comments: json['comments'] != null
           ? (json['comments'] as List)
-                .map((e) => MaintenanceComment.fromJson(e as Map<String, dynamic>))
+                .map(
+                  (e) => MaintenanceComment.fromJson(e as Map<String, dynamic>),
+                )
                 .toList()
           : const [],
       createdAt: DateTime.parse(json['created_at'] as String),

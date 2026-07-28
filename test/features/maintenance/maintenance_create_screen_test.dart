@@ -130,7 +130,10 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    await tester.enterText(find.widgetWithText(TextFormField, 'Titre'), 'Fuite d\'eau');
+    await tester.enterText(
+      find.widgetWithText(TextFormField, 'Titre'),
+      'Fuite d\'eau',
+    );
     await tester.enterText(
       find.widgetWithText(TextFormField, 'Description'),
       'Fuite sous le lavabo.',

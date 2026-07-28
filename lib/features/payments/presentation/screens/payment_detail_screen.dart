@@ -120,7 +120,10 @@ class _PaymentDetailScreenState extends ConsumerState<PaymentDetailScreen> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    _InfoRow(label: 'Période couverte', value: payment.periodCovered),
+                    _InfoRow(
+                      label: 'Période couverte',
+                      value: payment.periodCovered,
+                    ),
                     _InfoRow(
                       label: 'Date de paiement',
                       value: _dateFormat.format(payment.paymentDate),
@@ -206,12 +209,13 @@ class _InfoRow extends StatelessWidget {
             width: 140,
             child: Text(
               label,
-              style: const TextStyle(color: AppColors.textSecondary, fontSize: 13),
+              style: const TextStyle(
+                color: AppColors.textSecondary,
+                fontSize: 13,
+              ),
             ),
           ),
-          Expanded(
-            child: Text(value, style: const TextStyle(fontSize: 13)),
-          ),
+          Expanded(child: Text(value, style: const TextStyle(fontSize: 13))),
         ],
       ),
     );

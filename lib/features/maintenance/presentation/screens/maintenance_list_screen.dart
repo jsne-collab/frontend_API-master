@@ -39,8 +39,7 @@ class MaintenanceListScreen extends ConsumerStatefulWidget {
       _MaintenanceListScreenState();
 }
 
-class _MaintenanceListScreenState
-    extends ConsumerState<MaintenanceListScreen> {
+class _MaintenanceListScreenState extends ConsumerState<MaintenanceListScreen> {
   _StatusFilter _filter = _StatusFilter.all;
 
   @override
@@ -155,7 +154,9 @@ class _StatusFilterChips extends StatelessWidget {
               fontSize: 12,
             ),
             side: BorderSide(
-              color: isSelected ? AppColors.primary : AppColors.textSecondary.withValues(alpha: 0.3),
+              color: isSelected
+                  ? AppColors.primary
+                  : AppColors.textSecondary.withValues(alpha: 0.3),
             ),
           );
         },

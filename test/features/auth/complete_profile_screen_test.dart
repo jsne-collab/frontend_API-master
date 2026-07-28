@@ -71,7 +71,7 @@ void main() {
 
     expect(find.text('Bienvenue Awa, encore une étape'), findsOneWidget);
 
-    await tester.enterText(find.byType(TextFormField), '+22890001234');
+    await tester.enterText(find.byType(TextFormField), '90001234');
     await tester.ensureVisible(find.text('Terminer mon inscription'));
     await tester.tap(find.text('Terminer mon inscription'));
     await tester.pump();
@@ -87,7 +87,7 @@ void main() {
     await tester.pumpWidget(_wrap(fakeApi));
     await tester.pump();
 
-    await tester.enterText(find.byType(TextFormField), '+22890001234');
+    await tester.enterText(find.byType(TextFormField), '90001234');
     await tester.tap(find.byType(Checkbox));
     await tester.pump();
 

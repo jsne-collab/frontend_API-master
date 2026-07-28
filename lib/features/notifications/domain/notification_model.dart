@@ -11,7 +11,8 @@ enum NotificationType {
       'payment_validated' => NotificationType.paymentValidated,
       'payment_reminder' => NotificationType.paymentReminder,
       'new_message' => NotificationType.newMessage,
-      'maintenance_request_created' => NotificationType.maintenanceRequestCreated,
+      'maintenance_request_created' =>
+        NotificationType.maintenanceRequestCreated,
       'maintenance_comment' => NotificationType.maintenanceComment,
       _ => NotificationType.other,
     };

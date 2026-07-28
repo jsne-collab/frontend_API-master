@@ -35,10 +35,7 @@ class MyMaintenanceRequestsController
   }
 }
 
-final maintenanceRequestDetailProvider =
-    FutureProvider.autoDispose.family<MaintenanceRequestModel, int>((
-      ref,
-      id,
-    ) {
+final maintenanceRequestDetailProvider = FutureProvider.autoDispose
+    .family<MaintenanceRequestModel, int>((ref, id) {
       return ref.watch(maintenanceRepositoryProvider).show(id);
     });

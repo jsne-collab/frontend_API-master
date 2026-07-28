@@ -2,7 +2,8 @@ import '../domain/notification_model.dart';
 import 'notification_api.dart';
 
 class NotificationRepository {
-  NotificationRepository({NotificationApi? api}) : _api = api ?? NotificationApi();
+  NotificationRepository({NotificationApi? api})
+    : _api = api ?? NotificationApi();
 
   final NotificationApi _api;
 

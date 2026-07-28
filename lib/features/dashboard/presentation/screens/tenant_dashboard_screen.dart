@@ -198,13 +198,15 @@ class _RentHeroCard extends StatelessWidget {
     }
 
     final dueDate = dashboard.nextDueDate;
-    final daysUntilDue = dueDate?.difference(
-      DateTime(
-        DateTime.now().year,
-        DateTime.now().month,
-        DateTime.now().day,
-      ),
-    ).inDays;
+    final daysUntilDue = dueDate
+        ?.difference(
+          DateTime(
+            DateTime.now().year,
+            DateTime.now().month,
+            DateTime.now().day,
+          ),
+        )
+        .inDays;
     final isUrgent = daysUntilDue != null && daysUntilDue <= 5;
     final isOverdue = daysUntilDue != null && daysUntilDue < 0;
     // Approximation d'un cycle de 30 jours pour la barre de progression
@@ -329,10 +331,7 @@ class _ReceiptsLinkCard extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.w600),
             ),
           ),
-          const Icon(
-            Icons.chevron_right,
-            color: AppColors.textSecondary,
-          ),
+          const Icon(Icons.chevron_right, color: AppColors.textSecondary),
         ],
       ),
     );

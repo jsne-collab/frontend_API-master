@@ -4,7 +4,11 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/theme/app_colors.dart';
 
 class QuickLink {
-  const QuickLink({required this.icon, required this.label, required this.route});
+  const QuickLink({
+    required this.icon,
+    required this.label,
+    required this.route,
+  });
 
   final IconData icon;
   final String label;

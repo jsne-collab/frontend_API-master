@@ -116,9 +116,7 @@ void main() {
     await tester.pumpWidget(const SizedBox());
   });
 
-  testWidgets('sends a message and displays it in the thread', (
-    tester,
-  ) async {
+  testWidgets('sends a message and displays it in the thread', (tester) async {
     final fakeApi = _FakeMessageApi();
 
     await tester.pumpWidget(_wrap(fakeApi));

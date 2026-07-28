@@ -10,7 +10,9 @@ class ExpenseRepository {
     final response = await _api.listOwn(filters: filters);
     final data = response['data'] as Map<String, dynamic>;
     final items = data['items'] as List;
-    return items.map((e) => Expense.fromJson(e as Map<String, dynamic>)).toList();
+    return items
+        .map((e) => Expense.fromJson(e as Map<String, dynamic>))
+        .toList();
   }
 
   Future<Expense> show(int id) async {

@@ -31,9 +31,7 @@ class ConversationsController extends AsyncNotifier<List<Conversation>> {
   }
 }
 
-final threadProvider = FutureProvider.autoDispose.family<List<ChatMessage>, int>((
-  ref,
-  otherUserId,
-) {
-  return ref.watch(messageRepositoryProvider).messages(otherUserId);
-});
+final threadProvider = FutureProvider.autoDispose
+    .family<List<ChatMessage>, int>((ref, otherUserId) {
+      return ref.watch(messageRepositoryProvider).messages(otherUserId);
+    });

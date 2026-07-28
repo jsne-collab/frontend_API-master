@@ -18,8 +18,7 @@ class OwnerDashboard {
   factory OwnerDashboard.fromJson(Map<String, dynamic> json) {
     return OwnerDashboard(
       monthlyRevenue: (json['monthly_revenue'] as num).toDouble(),
-      previousMonthRevenue: (json['previous_month_revenue'] as num)
-          .toDouble(),
+      previousMonthRevenue: (json['previous_month_revenue'] as num).toDouble(),
       revenueVariationPercent: (json['revenue_variation_percent'] as num)
           .toDouble(),
       occupancyRate: (json['occupancy_rate'] as num).toDouble(),

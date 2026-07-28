@@ -81,6 +81,13 @@ void main() {
   testWidgets('saves the profile and shows a success message', (tester) async {
     final fakeApi = _FakeProfileApi();
 
+    // Formulaire plus haut depuis l'ajout du sélecteur de pays sur le champ
+    // téléphone (AppPhoneField) : la fenêtre de test par défaut (800x600)
+    // ne laisse plus assez de place pour scroller jusqu'au bouton.
+    tester.view.physicalSize = const Size(800, 1200);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+
     await tester.pumpWidget(_wrap(const ProfileScreen(), fakeApi: fakeApi));
 
     await tester.enterText(find.byType(TextFormField).first, 'Jean Modifié');

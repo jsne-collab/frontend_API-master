@@ -5,7 +5,11 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/theme/app_colors.dart';
 
 class TermsCheckbox extends StatelessWidget {
-  const TermsCheckbox({super.key, required this.accepted, required this.onChanged});
+  const TermsCheckbox({
+    super.key,
+    required this.accepted,
+    required this.onChanged,
+  });
 
   final bool accepted;
   final ValueChanged<bool> onChanged;

@@ -79,7 +79,9 @@ class _ConversationsListScreenState
                         .map(
                           (conversation) => Padding(
                             padding: const EdgeInsets.only(bottom: 12),
-                            child: _ConversationCard(conversation: conversation),
+                            child: _ConversationCard(
+                              conversation: conversation,
+                            ),
                           ),
                         )
                         .toList(),
@@ -143,7 +145,9 @@ class _ConversationCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      DateFormat('dd/MM HH:mm').format(conversation.lastMessageAt),
+                      DateFormat(
+                        'dd/MM HH:mm',
+                      ).format(conversation.lastMessageAt),
                       style: const TextStyle(
                         color: AppColors.textSecondary,
                         fontSize: 11,

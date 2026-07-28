@@ -52,17 +52,17 @@ class AuthController extends Notifier<AuthState> {
   /// indéfiniment, y compris sans le moindre appel réseau.
   Future<void> bootstrap() async {
     try {
-      final token = await _repository
-          .readStoredToken()
-          .timeout(const Duration(seconds: 5));
+      final token = await _repository.readStoredToken().timeout(
+        const Duration(seconds: 5),
+      );
       if (token == null) {
         state = const AuthState.unauthenticated();
         return;
       }
 
-      final user = await _repository
-          .fetchCurrentUser()
-          .timeout(const Duration(seconds: 20));
+      final user = await _repository.fetchCurrentUser().timeout(
+        const Duration(seconds: 20),
+      );
       state = AuthState.authenticated(user);
     } catch (_) {
       state = const AuthState.unauthenticated();

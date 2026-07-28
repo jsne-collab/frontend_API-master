@@ -38,7 +38,12 @@ Map<String, dynamic> _leaseJson(Map<String, dynamic> data) {
       'city': 'Lomé',
     },
     'unit': null,
-    'tenant': {'id': 9, 'name': 'Awa Koffi', 'phone': '+22890000009', 'email': 'awa@example.com'},
+    'tenant': {
+      'id': 9,
+      'name': 'Awa Koffi',
+      'phone': '+22890000009',
+      'email': 'awa@example.com',
+    },
     'owner': {'id': 1, 'name': 'Jean Owner', 'phone': '+22890000001'},
     'start_date': '2026-01-01',
     'end_date': '2027-01-01',

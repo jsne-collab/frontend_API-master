@@ -24,9 +24,21 @@ import '../../../../core/widgets/skeleton.dart';
 // Biens/Baux/Paiements/Messages sont déjà dans la barre de navigation ;
 // ces accès rapides couvrent le reste (pas assez de place pour 6+ onglets).
 const _ownerQuickLinks = [
-  QuickLink(icon: Icons.build_outlined, label: 'Maintenance', route: '/maintenance'),
-  QuickLink(icon: Icons.receipt_long_outlined, label: 'Quittances', route: '/receipts'),
-  QuickLink(icon: Icons.bar_chart_outlined, label: 'Statistiques', route: '/statistics'),
+  QuickLink(
+    icon: Icons.build_outlined,
+    label: 'Maintenance',
+    route: '/maintenance',
+  ),
+  QuickLink(
+    icon: Icons.receipt_long_outlined,
+    label: 'Quittances',
+    route: '/receipts',
+  ),
+  QuickLink(
+    icon: Icons.bar_chart_outlined,
+    label: 'Statistiques',
+    route: '/statistics',
+  ),
 ];
 
 final _currency = NumberFormat.currency(
@@ -268,7 +280,9 @@ class _HeroRevenueCard extends StatelessWidget {
             child: Text(
               '${isUp ? '+' : ''}${dashboard.revenueVariationPercent.toStringAsFixed(1)}% vs mois dernier',
               style: TextStyle(
-                color: isUp ? Colors.greenAccent.shade100 : Colors.orange.shade100,
+                color: isUp
+                    ? Colors.greenAccent.shade100
+                    : Colors.orange.shade100,
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
               ),
@@ -430,10 +444,7 @@ class _ExpensesSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Charges',
-            style: TextStyle(fontWeight: FontWeight.w600),
-          ),
+          const Text('Charges', style: TextStyle(fontWeight: FontWeight.w600)),
           const SizedBox(height: 12),
           expensesAsync.when(
             loading: () => const SkeletonList(),
@@ -480,31 +491,33 @@ class _ExpensesSection extends StatelessWidget {
                       ),
                     )
                   else
-                    ...expenses.take(3).map(
-                      (expense) => Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                '${expense.property.title} · ${expense.category.label}',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(fontSize: 13),
-                              ),
+                    ...expenses
+                        .take(3)
+                        .map(
+                          (expense) => Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    '${expense.property.title} · ${expense.category.label}',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(fontSize: 13),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Text(
+                                  _currency.format(expense.amount),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 13,
+                                  ),
+                                ),
+                              ],
                             ),
-                            const SizedBox(width: 8),
-                            Text(
-                              _currency.format(expense.amount),
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 13,
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
                 ],
               );
             },

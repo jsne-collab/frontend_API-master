@@ -29,7 +29,9 @@ class RevenueChart extends StatelessWidget {
   Widget build(BuildContext context) {
     if (points.isEmpty) return const SizedBox.shrink();
 
-    final maxTotal = points.map((p) => p.total).fold<double>(0, (a, b) => a > b ? a : b);
+    final maxTotal = points
+        .map((p) => p.total)
+        .fold<double>(0, (a, b) => a > b ? a : b);
     final maxY = maxTotal <= 0 ? 100.0 : maxTotal * 1.2;
 
     return SizedBox(

@@ -25,8 +25,7 @@ class CompleteProfileScreen extends ConsumerStatefulWidget {
       _CompleteProfileScreenState();
 }
 
-class _CompleteProfileScreenState
-    extends ConsumerState<CompleteProfileScreen> {
+class _CompleteProfileScreenState extends ConsumerState<CompleteProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   String _phone = '';
 

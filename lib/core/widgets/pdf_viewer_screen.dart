@@ -98,7 +98,8 @@ class _PdfViewerScreenState extends State<PdfViewerScreen> {
           ),
         ),
         _LoadStatus.error => ErrorState(
-          message: 'Impossible de charger le document. Vérifie ta connexion et réessaie.',
+          message:
+              'Impossible de charger le document. Vérifie ta connexion et réessaie.',
           onRetry: () {
             _generatingRetries = 0;
             _load();

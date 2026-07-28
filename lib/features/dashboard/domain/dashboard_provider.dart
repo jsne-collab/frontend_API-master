@@ -14,7 +14,8 @@ final ownerDashboardProvider =
 
 class OwnerDashboardController extends AsyncNotifier<OwnerDashboard> {
   @override
-  Future<OwnerDashboard> build() => ref.read(dashboardRepositoryProvider).owner();
+  Future<OwnerDashboard> build() =>
+      ref.read(dashboardRepositoryProvider).owner();
 
   Future<void> refresh() async {
     state = await AsyncValue.guard(

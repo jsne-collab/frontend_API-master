@@ -19,19 +19,59 @@ class _TabDestination {
 }
 
 const _ownerTabs = [
-  _TabDestination(route: '/owner/home', icon: Icons.dashboard_outlined, label: 'Accueil'),
-  _TabDestination(route: '/properties', icon: Icons.villa_outlined, label: 'Biens'),
-  _TabDestination(route: '/leases', icon: Icons.description_outlined, label: 'Baux'),
-  _TabDestination(route: '/payments', icon: Icons.payments_outlined, label: 'Paiements'),
-  _TabDestination(route: '/messages', icon: Icons.chat_bubble_outline, label: 'Messages'),
+  _TabDestination(
+    route: '/owner/home',
+    icon: Icons.dashboard_outlined,
+    label: 'Accueil',
+  ),
+  _TabDestination(
+    route: '/properties',
+    icon: Icons.villa_outlined,
+    label: 'Biens',
+  ),
+  _TabDestination(
+    route: '/leases',
+    icon: Icons.description_outlined,
+    label: 'Baux',
+  ),
+  _TabDestination(
+    route: '/payments',
+    icon: Icons.payments_outlined,
+    label: 'Paiements',
+  ),
+  _TabDestination(
+    route: '/messages',
+    icon: Icons.chat_bubble_outline,
+    label: 'Messages',
+  ),
 ];
 
 const _tenantTabs = [
-  _TabDestination(route: '/tenant/home', icon: Icons.dashboard_outlined, label: 'Accueil'),
-  _TabDestination(route: '/leases', icon: Icons.description_outlined, label: 'Mon bail'),
-  _TabDestination(route: '/payments', icon: Icons.payments_outlined, label: 'Paiements'),
-  _TabDestination(route: '/maintenance', icon: Icons.build_outlined, label: 'Maintenance'),
-  _TabDestination(route: '/messages', icon: Icons.chat_bubble_outline, label: 'Messages'),
+  _TabDestination(
+    route: '/tenant/home',
+    icon: Icons.dashboard_outlined,
+    label: 'Accueil',
+  ),
+  _TabDestination(
+    route: '/leases',
+    icon: Icons.description_outlined,
+    label: 'Mon bail',
+  ),
+  _TabDestination(
+    route: '/payments',
+    icon: Icons.payments_outlined,
+    label: 'Paiements',
+  ),
+  _TabDestination(
+    route: '/maintenance',
+    icon: Icons.build_outlined,
+    label: 'Maintenance',
+  ),
+  _TabDestination(
+    route: '/messages',
+    icon: Icons.chat_bubble_outline,
+    label: 'Messages',
+  ),
 ];
 
 /// Scaffold avec barre de navigation persistante — à utiliser sur les 5
@@ -60,7 +100,8 @@ class AppScaffold extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isOwner = ref.watch(authControllerProvider).user?.role == UserRole.owner;
+    final isOwner =
+        ref.watch(authControllerProvider).user?.role == UserRole.owner;
     final tabs = isOwner ? _ownerTabs : _tenantTabs;
     final currentIndex = tabs.indexWhere((tab) => tab.route == currentRoute);
 
