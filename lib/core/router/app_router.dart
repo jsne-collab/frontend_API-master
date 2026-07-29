@@ -11,6 +11,7 @@ import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/auth/presentation/screens/register_screen.dart';
 import '../../features/auth/presentation/screens/splash_screen.dart';
 import '../../features/admin/presentation/screens/admin_owners_screen.dart';
+import '../../features/admin/presentation/screens/owner_detail_screen.dart';
 import '../../features/dashboard/presentation/screens/owner_dashboard_screen.dart';
 import '../../features/dashboard/presentation/screens/statistics_screen.dart';
 import '../../features/dashboard/presentation/screens/tenant_dashboard_screen.dart';
@@ -124,6 +125,11 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/admin/home',
         builder: (context, state) => const AdminOwnersScreen(),
+      ),
+      GoRoute(
+        path: '/admin/owners/:id',
+        builder: (context, state) =>
+            OwnerDetailScreen(ownerId: int.parse(state.pathParameters['id']!)),
       ),
       GoRoute(
         path: '/subscription',

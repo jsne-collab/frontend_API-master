@@ -63,18 +63,14 @@ Widget _wrap(AdminApi fakeApi) {
   return ProviderScope(
     overrides: [
       authControllerProvider.overrideWith(_FakeAuthController.new),
-      adminRepositoryProvider.overrideWithValue(
-        AdminRepository(api: fakeApi),
-      ),
+      adminRepositoryProvider.overrideWithValue(AdminRepository(api: fakeApi)),
     ],
     child: const MaterialApp(home: AdminOwnersScreen()),
   );
 }
 
 void main() {
-  testWidgets('shows an empty state when there are no owners', (
-    tester,
-  ) async {
+  testWidgets('shows an empty state when there are no owners', (tester) async {
     await tester.pumpWidget(_wrap(_FakeEmptyAdminApi()));
     await tester.pumpAndSettle();
 

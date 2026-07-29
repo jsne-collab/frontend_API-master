@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/network/error_message.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -113,6 +114,7 @@ class _OwnerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppCard(
+      onTap: () => context.push('/admin/owners/${owner.id}'),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../data/admin_repository.dart';
+import 'owner_detail_model.dart';
 import 'owner_overview_model.dart';
 
 final adminRepositoryProvider = Provider<AdminRepository>(
@@ -29,3 +30,11 @@ class AdminOwnersController extends AsyncNotifier<List<OwnerOverview>> {
     state = const AsyncLoading();
   }
 }
+
+/// Détail d'un propriétaire (locataires + historique d'abonnement),
+/// rechargé à la demande via `ref.invalidate(ownerDetailProvider(id))`.
+final ownerDetailProvider = FutureProvider.autoDispose.family<OwnerDetail, int>(
+  (ref, ownerId) {
+    return ref.watch(adminRepositoryProvider).showOwner(ownerId);
+  },
+);
