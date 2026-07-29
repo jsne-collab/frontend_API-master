@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/network/dio_client.dart';
+import '../../admin/domain/admin_provider.dart';
 import '../../dashboard/domain/dashboard_provider.dart';
 import '../../expenses/domain/expense_provider.dart';
 import '../../leases/domain/lease_provider.dart';
@@ -10,6 +11,7 @@ import '../../notifications/domain/notification_provider.dart';
 import '../../payments/domain/payment_provider.dart';
 import '../../properties/domain/property_provider.dart';
 import '../../receipts/domain/receipt_provider.dart';
+import '../../subscription/domain/subscription_provider.dart';
 import '../data/auth_repository.dart';
 import '../data/google_sign_in_service.dart';
 import 'auth_state.dart';
@@ -153,6 +155,8 @@ class AuthController extends Notifier<AuthState> {
     ref.read(notificationsProvider.notifier).clear();
     ref.read(myReceiptsProvider.notifier).clear();
     ref.read(myExpensesProvider.notifier).clear();
+    ref.read(subscriptionProvider.notifier).clear();
+    ref.read(adminOwnersProvider.notifier).clear();
 
     ref.invalidate(ownerDashboardProvider);
     ref.invalidate(tenantDashboardProvider);
@@ -164,5 +168,7 @@ class AuthController extends Notifier<AuthState> {
     ref.invalidate(notificationsProvider);
     ref.invalidate(myReceiptsProvider);
     ref.invalidate(myExpensesProvider);
+    ref.invalidate(subscriptionProvider);
+    ref.invalidate(adminOwnersProvider);
   }
 }

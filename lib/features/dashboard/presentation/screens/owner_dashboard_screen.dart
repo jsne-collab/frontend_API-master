@@ -39,6 +39,11 @@ const _ownerQuickLinks = [
     label: 'Statistiques',
     route: '/statistics',
   ),
+  QuickLink(
+    icon: Icons.workspace_premium_outlined,
+    label: 'Abonnement',
+    route: '/subscription',
+  ),
 ];
 
 final _currency = NumberFormat.currency(

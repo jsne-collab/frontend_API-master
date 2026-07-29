@@ -10,6 +10,7 @@ import '../../features/auth/presentation/screens/forgot_password_screen.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/auth/presentation/screens/register_screen.dart';
 import '../../features/auth/presentation/screens/splash_screen.dart';
+import '../../features/admin/presentation/screens/admin_owners_screen.dart';
 import '../../features/dashboard/presentation/screens/owner_dashboard_screen.dart';
 import '../../features/dashboard/presentation/screens/statistics_screen.dart';
 import '../../features/dashboard/presentation/screens/tenant_dashboard_screen.dart';
@@ -34,6 +35,7 @@ import '../../features/properties/presentation/screens/property_detail_screen.da
 import '../../features/properties/presentation/screens/property_form_screen.dart';
 import '../../features/properties/presentation/screens/property_list_screen.dart';
 import '../../features/receipts/presentation/screens/receipt_list_screen.dart';
+import '../../features/subscription/presentation/screens/subscription_screen.dart';
 import '../widgets/pdf_viewer_screen.dart';
 
 const _publicPaths = {'/login', '/register', '/forgot-password'};
@@ -84,7 +86,11 @@ final routerProvider = Provider<GoRouter>((ref) {
       if (path == '/complete-profile' ||
           path == '/splash' ||
           _publicPaths.contains(path)) {
-        return user.role == UserRole.owner ? '/owner/home' : '/tenant/home';
+        return switch (user.role) {
+          UserRole.owner => '/owner/home',
+          UserRole.admin => '/admin/home',
+          UserRole.tenant => '/tenant/home',
+        };
       }
 
       return null;
@@ -114,6 +120,14 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/tenant/home',
         builder: (context, state) => const TenantDashboardScreen(),
+      ),
+      GoRoute(
+        path: '/admin/home',
+        builder: (context, state) => const AdminOwnersScreen(),
+      ),
+      GoRoute(
+        path: '/subscription',
+        builder: (context, state) => const SubscriptionScreen(),
       ),
       GoRoute(
         path: '/statistics',

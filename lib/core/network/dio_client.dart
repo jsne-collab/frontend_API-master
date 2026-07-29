@@ -17,7 +17,7 @@ const String _explicitBaseUrl = String.fromEnvironment('API_BASE_URL');
 ///   câble est branché — voir le watcher qui l'exécute automatiquement.
 const List<String> _candidateHosts = [
   //'http://10.0.2.2:8000',
-  'http://192.168.1.77:8000',
+  'http://192.168.1.82:8000',
 ];
 
 /// Client HTTP unique de l'application, avec injection automatique du token
