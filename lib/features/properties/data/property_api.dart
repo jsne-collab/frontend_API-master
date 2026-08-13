@@ -40,7 +40,7 @@ class PropertyApi {
         '/properties/$propertyId/images',
         data: FormData.fromMap({
           'image': await MultipartFile.fromFile(filePath),
-          'is_primary': isPrimary,
+          'is_primary': isPrimary ? '1' : '0',
         }),
       );
       return response.data ?? const {};

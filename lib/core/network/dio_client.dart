@@ -15,11 +15,12 @@ const String _explicitBaseUrl = String.fromEnvironment('API_BASE_URL');
 /// - `127.0.0.1` : appareil physique via `adb reverse tcp:8000 tcp:8000`
 ///   (tunnel USB), fonctionne aussi quel que soit le Wi-Fi tant que le
 ///   câble est branché — voir le watcher qui l'exécute automatiquement.
-const List<String> _candidateHosts = [
+/*const List<String> _candidateHosts = [
   //'http://10.0.2.2:8000',
-  'http://192.168.1.82:8000',
-];
+  'https://immo.defconenterprise.com',
+];*/
 
+const String _candidateHosts = 'https://immo.defconenterprise.com';
 /// Client HTTP unique de l'application, avec injection automatique du token
 /// et notification centralisée des 401 (session expirée).
 class DioClient {
@@ -80,7 +81,7 @@ class DioClient {
       ),
     );
 
-    for (final host in _candidateHosts) {
+    /*for (final host in _candidateHosts) {
       try {
         await probe.get('$host/api/v1');
         _dio.options.baseUrl = '$host/api/v1';
@@ -88,7 +89,17 @@ class DioClient {
       } on DioException {
         continue;
       }
-    }
+    }*/
+	
+	try {
+        await probe.get('$_candidateHosts/api/v1');
+        _dio.options.baseUrl = '$_candidateHosts/api/v1';
+        return;
+      } on DioException {
+        continue;
+      }
+	
+	
     // Aucun candidat n'a répondu (ex : device physique sans câble/adb
     // reverse) : on garde le premier par défaut, l'appel réel échouera
     // avec un message clair plutôt que de deviner une IP Wi-Fi.
