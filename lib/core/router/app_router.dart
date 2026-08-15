@@ -15,6 +15,8 @@ import '../../features/admin/presentation/screens/owner_detail_screen.dart';
 import '../../features/dashboard/presentation/screens/owner_dashboard_screen.dart';
 import '../../features/dashboard/presentation/screens/statistics_screen.dart';
 import '../../features/dashboard/presentation/screens/tenant_dashboard_screen.dart';
+import '../../features/expenses/presentation/screens/expense_form_screen.dart';
+import '../../features/expenses/presentation/screens/expense_list_screen.dart';
 import '../../features/profile/presentation/screens/about_screen.dart';
 import '../../features/legal/presentation/screens/legal_document_screen.dart';
 import '../../features/profile/presentation/screens/change_password_screen.dart';
@@ -77,9 +79,6 @@ final routerProvider = Provider<GoRouter>((ref) {
 
       final user = authState.user!;
 
-      // Un compte créé via Google Sign-In sans rôle/téléphone ne peut
-      // accéder à rien d'autre tant que ce n'est pas complété — aucun
-      // moyen de contourner cet écran.
       if (!user.profileCompleted) {
         return path == '/complete-profile' ? null : '/complete-profile';
       }
@@ -223,6 +222,14 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/receipts/:id/view',
         builder: (context, state) =>
             PdfViewerScreen(title: 'Quittance', pdfUrl: state.extra! as String),
+      ),
+      GoRoute(
+        path: '/expenses',
+        builder: (context, state) => const ExpenseListScreen(),
+      ),
+      GoRoute(
+        path: '/expenses/add',
+        builder: (context, state) => const ExpenseFormScreen(),
       ),
       GoRoute(
         path: '/maintenance',

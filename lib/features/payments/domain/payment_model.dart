@@ -45,6 +45,42 @@ enum PaymentMethodType {
   };
 }
 
+/// Choix affiché aux utilisateurs pour sélectionner un moyen de paiement
+/// (écrans "Payer mon loyer" et "Abonnement"). Au Togo, personne ne dit
+/// "Mobile Money" — on nomme directement l'opérateur (T-Money, Moov Money) ;
+/// "Mobile Money" reste seulement en interne comme valeur d'API
+/// (`PaymentMethodType.mobileMoney`, colonne `type` inchangée côté backend
+/// pour ne pas casser le contrat) — audit du 13/08/2026.
+enum PaymentMethodChoice {
+  tMoney,
+  moovMoney,
+  bankTransfer,
+  cash;
+
+  String get label => switch (this) {
+    PaymentMethodChoice.tMoney => 'T-Money',
+    PaymentMethodChoice.moovMoney => 'Moov Money',
+    PaymentMethodChoice.bankTransfer => 'Virement bancaire',
+    PaymentMethodChoice.cash => 'Espèces',
+  };
+
+  PaymentMethodType get apiType => switch (this) {
+    PaymentMethodChoice.tMoney => PaymentMethodType.mobileMoney,
+    PaymentMethodChoice.moovMoney => PaymentMethodType.mobileMoney,
+    PaymentMethodChoice.bankTransfer => PaymentMethodType.bankTransfer,
+    PaymentMethodChoice.cash => PaymentMethodType.cash,
+  };
+
+  /// Nom d'opérateur envoyé comme `method_provider` — null pour virement
+  /// bancaire/espèces, qui n'ont pas d'opérateur.
+  String? get providerName => switch (this) {
+    PaymentMethodChoice.tMoney => 'T-Money',
+    PaymentMethodChoice.moovMoney => 'Moov Money',
+    PaymentMethodChoice.bankTransfer => null,
+    PaymentMethodChoice.cash => null,
+  };
+}
+
 class PaymentMethodInfo {
   const PaymentMethodInfo({
     required this.id,

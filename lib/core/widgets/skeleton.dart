@@ -13,7 +13,7 @@ class SkeletonBox extends StatelessWidget {
     this.height = 16,
     this.borderRadius = 8,
   });
-
+///effet de chargement
   final double? width;
   final double height;
   final double borderRadius;

@@ -8,7 +8,7 @@ class MaxWidthBody extends StatelessWidget {
 
   final Widget child;
   final double maxWidth;
-
+///limite la largeur des contenus 
   @override
   Widget build(BuildContext context) {
     return Align(

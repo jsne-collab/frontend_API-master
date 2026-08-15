@@ -168,7 +168,8 @@ class OwnerDashboardScreen extends ConsumerWidget {
                 );
                 final expensesSection = _ExpensesSection(
                   expensesAsync: expensesAsync,
-                  monthlyRevenue: dashboard.monthlyRevenue,
+                  totalExpenses: dashboard.totalExpenses,
+                  netBalance: dashboard.netBalance,
                 );
 
                 if (isExpanded) {
@@ -437,11 +438,18 @@ class _RecentPaymentsSection extends StatelessWidget {
 class _ExpensesSection extends StatelessWidget {
   const _ExpensesSection({
     required this.expensesAsync,
-    required this.monthlyRevenue,
+    required this.totalExpenses,
+    required this.netBalance,
   });
 
   final AsyncValue<List<Expense>> expensesAsync;
-  final double monthlyRevenue;
+  // Calculées côté backend (toutes périodes confondues, tous biens du
+  // propriétaire) — voir DashboardService::ownerStats(). Ne plus les
+  // recalculer ici à partir de expensesAsync + monthlyRevenue : ça mélangeait
+  // le revenu du mois en cours avec la somme de TOUTES les charges jamais
+  // enregistrées (audit du 13/08/2026).
+  final double totalExpenses;
+  final double netBalance;
 
   @override
   Widget build(BuildContext context) {
@@ -449,54 +457,66 @@ class _ExpensesSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Charges', style: TextStyle(fontWeight: FontWeight.w600)),
-          const SizedBox(height: 12),
+          Row(
+            children: [
+              const Expanded(
+                child: Text(
+                  'Charges',
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+              ),
+              IconButton(
+                icon: const Icon(Icons.add_circle_outline),
+                tooltip: 'Ajouter une charge',
+                onPressed: () => context.push('/expenses/add'),
+              ),
+              TextButton(
+                onPressed: () => context.push('/expenses'),
+                child: const Text('Voir tout'),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: _ExpenseFigure(
+                  label: 'Charges totales',
+                  value: _currency.format(totalExpenses),
+                  color: AppColors.error,
+                ),
+              ),
+              Expanded(
+                child: _ExpenseFigure(
+                  label: 'Solde net',
+                  value: _currency.format(netBalance),
+                  color: netBalance >= 0 ? AppColors.success : AppColors.error,
+                ),
+              ),
+            ],
+          ),
           expensesAsync.when(
-            loading: () => const SkeletonList(),
-            error: (error, _) => Text(
-              friendlyErrorMessage(error),
-              style: const TextStyle(color: AppColors.error),
+            loading: () => const Padding(
+              padding: EdgeInsets.only(top: 12),
+              child: SkeletonList(),
             ),
-            data: (expenses) {
-              final total = expenses.fold<double>(
-                0,
-                (sum, expense) => sum + expense.amount,
-              );
-              final netBalance = monthlyRevenue - total;
-
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _ExpenseFigure(
-                          label: 'Charges totales',
-                          value: _currency.format(total),
-                          color: AppColors.error,
-                        ),
-                      ),
-                      Expanded(
-                        child: _ExpenseFigure(
-                          label: 'Solde net',
-                          value: _currency.format(netBalance),
-                          color: netBalance >= 0
-                              ? AppColors.success
-                              : AppColors.error,
-                        ),
-                      ),
-                    ],
-                  ),
-                  if (expenses.isEmpty)
-                    const Padding(
-                      padding: EdgeInsets.only(top: 12),
-                      child: Text(
-                        'Aucune charge enregistrée.',
-                        style: TextStyle(color: AppColors.textSecondary),
-                      ),
-                    )
-                  else
-                    ...expenses
+            error: (error, _) => Padding(
+              padding: const EdgeInsets.only(top: 12),
+              child: Text(
+                friendlyErrorMessage(error),
+                style: const TextStyle(color: AppColors.error),
+              ),
+            ),
+            data: (expenses) => expenses.isEmpty
+                ? const Padding(
+                    padding: EdgeInsets.only(top: 12),
+                    child: Text(
+                      'Aucune charge enregistrée.',
+                      style: TextStyle(color: AppColors.textSecondary),
+                    ),
+                  )
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: expenses
                         .take(3)
                         .map(
                           (expense) => Padding(
@@ -522,10 +542,9 @@ class _ExpensesSection extends StatelessWidget {
                               ],
                             ),
                           ),
-                        ),
-                ],
-              );
-            },
+                        )
+                        .toList(),
+                  ),
           ),
         ],
       ),

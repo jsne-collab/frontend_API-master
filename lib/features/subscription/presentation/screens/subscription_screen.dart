@@ -27,16 +27,15 @@ class SubscriptionScreen extends ConsumerStatefulWidget {
 }
 
 class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
-  final _providerController = TextEditingController();
   final _accountController = TextEditingController();
 
-  PaymentMethodType _methodType = PaymentMethodType.mobileMoney;
+  SubscriptionPlan _selectedPlan = SubscriptionPlan.monthly;
+  PaymentMethodChoice _methodChoice = PaymentMethodChoice.tMoney;
   bool _isSubmitting = false;
   String? _errorMessage;
 
   @override
   void dispose() {
-    _providerController.dispose();
     _accountController.dispose();
     super.dispose();
   }
@@ -49,9 +48,10 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
 
     try {
       await ref.read(subscriptionRepositoryProvider).initiate({
-        'method_type': _methodType.apiValue,
-        if (_providerController.text.trim().isNotEmpty)
-          'method_provider': _providerController.text.trim(),
+        'plan': _selectedPlan.apiValue,
+        'method_type': _methodChoice.apiType.apiValue,
+        if (_methodChoice.providerName != null)
+          'method_provider': _methodChoice.providerName,
         if (_accountController.text.trim().isNotEmpty)
           'method_account_number': _accountController.text.trim(),
       });
@@ -89,111 +89,143 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
               ),
             ),
           ),
-          data: (subscription) => ListView(
-            padding: const EdgeInsets.all(16),
-            children: [
-              AppCard(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        const Expanded(
-                          child: Text(
-                            "Droits d'utilisation de l'app",
-                            style: TextStyle(fontWeight: FontWeight.w600),
+          data: (subscription) {
+            final selectedAmount =
+                subscription.plans[_selectedPlan.apiValue]?.amount ?? 0;
+
+            return ListView(
+              padding: const EdgeInsets.all(16),
+              children: [
+                AppCard(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          const Expanded(
+                            child: Text(
+                              "Droits d'utilisation de l'app",
+                              style: TextStyle(fontWeight: FontWeight.w600),
+                            ),
                           ),
-                        ),
-                        StatusBadge(
-                          label: subscription.status.label,
-                          tone: _tone(subscription.status),
+                          StatusBadge(
+                            label: subscription.status.label,
+                            tone: _tone(subscription.status),
+                          ),
+                        ],
+                      ),
+                      if (subscription.status !=
+                          SubscriptionStatus.pending) ...[
+                        const SizedBox(height: 12),
+                        Row(
+                          children: SubscriptionPlan.values.map((plan) {
+                            final option = subscription.plans[plan.apiValue];
+                            final selected = plan == _selectedPlan;
+
+                            return Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  right: plan == SubscriptionPlan.monthly
+                                      ? 8
+                                      : 0,
+                                ),
+                                child: ChoiceChip(
+                                  label: Text(
+                                    option != null
+                                        ? '${option.label} · ${_currency.format(option.amount)}'
+                                        : plan.apiValue,
+                                  ),
+                                  selected: selected,
+                                  onSelected: (_) =>
+                                      setState(() => _selectedPlan = plan),
+                                ),
+                              ),
+                            );
+                          }).toList(),
                         ),
                       ],
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      _currency.format(subscription.amount),
-                      style: const TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.w800,
-                        color: AppColors.primary,
-                      ),
-                    ),
-                    if (subscription.nextDueDate != null) ...[
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 12),
                       Text(
-                        subscription.status == SubscriptionStatus.overdue
-                            ? 'Échéance dépassée le ${DateFormat('dd/MM/yyyy').format(subscription.nextDueDate!)}'
-                            : "Valable jusqu'au ${DateFormat('dd/MM/yyyy').format(subscription.nextDueDate!)}",
-                        style: const TextStyle(color: AppColors.textSecondary),
-                      ),
-                    ],
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20),
-              if (subscription.status != SubscriptionStatus.pending) ...[
-                if (_errorMessage != null) ...[
-                  Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: AppColors.error.withValues(alpha: 0.08),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Text(
-                      _errorMessage!,
-                      style: const TextStyle(color: AppColors.error),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                ],
-                const Text(
-                  'Moyen de paiement',
-                  style: TextStyle(fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(height: 8),
-                DropdownButtonFormField<PaymentMethodType>(
-                  initialValue: _methodType,
-                  items: PaymentMethodType.values
-                      .map(
-                        (type) => DropdownMenuItem(
-                          value: type,
-                          child: Text(type.label),
+                        _currency.format(selectedAmount),
+                        style: const TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.w800,
+                          color: AppColors.primary,
                         ),
-                      )
-                      .toList(),
-                  onChanged: (value) {
-                    if (value != null) setState(() => _methodType = value);
-                  },
-                ),
-                if (_methodType != PaymentMethodType.cash) ...[
-                  const SizedBox(height: 16),
-                  AppTextField(
-                    label: 'Opérateur (ex. Flooz, T-Money)',
-                    controller: _providerController,
+                      ),
+                      if (subscription.nextDueDate != null) ...[
+                        const SizedBox(height: 8),
+                        Text(
+                          subscription.status == SubscriptionStatus.overdue
+                              ? 'Échéance dépassée le ${DateFormat('dd/MM/yyyy').format(subscription.nextDueDate!)}'
+                              : "Valable jusqu'au ${DateFormat('dd/MM/yyyy').format(subscription.nextDueDate!)}",
+                          style: const TextStyle(
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                      ],
+                    ],
                   ),
-                  const SizedBox(height: 16),
-                  AppTextField(
-                    label: 'Numéro de compte / téléphone',
-                    controller: _accountController,
-                    keyboardType: TextInputType.phone,
+                ),
+                const SizedBox(height: 20),
+                if (subscription.status != SubscriptionStatus.pending) ...[
+                  if (_errorMessage != null) ...[
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: AppColors.error.withValues(alpha: 0.08),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Text(
+                        _errorMessage!,
+                        style: const TextStyle(color: AppColors.error),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                  ],
+                  const Text(
+                    'Moyen de paiement',
+                    style: TextStyle(fontWeight: FontWeight.w600),
                   ),
-                ],
-                const SizedBox(height: 24),
-                AppButton(
-                  label: subscription.status == SubscriptionStatus.paid
-                      ? 'Renouveler'
-                      : 'Payer maintenant',
-                  isLoading: _isSubmitting,
-                  onPressed: _submit,
-                ),
-              ] else
-                const Text(
-                  'Paiement envoyé, en attente de validation par un administrateur.',
-                  style: TextStyle(color: AppColors.textSecondary),
-                ),
-            ],
-          ),
+                  const SizedBox(height: 8),
+                  DropdownButtonFormField<PaymentMethodChoice>(
+                    initialValue: _methodChoice,
+                    items: PaymentMethodChoice.values
+                        .map(
+                          (choice) => DropdownMenuItem(
+                            value: choice,
+                            child: Text(choice.label),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (value) {
+                      if (value != null) setState(() => _methodChoice = value);
+                    },
+                  ),
+                  if (_methodChoice != PaymentMethodChoice.cash) ...[
+                    const SizedBox(height: 16),
+                    AppTextField(
+                      label: 'Numéro de compte / téléphone',
+                      controller: _accountController,
+                      keyboardType: TextInputType.phone,
+                    ),
+                  ],
+                  const SizedBox(height: 24),
+                  AppButton(
+                    label: subscription.status == SubscriptionStatus.paid
+                        ? 'Renouveler'
+                        : 'Payer maintenant',
+                    isLoading: _isSubmitting,
+                    onPressed: _submit,
+                  ),
+                ] else
+                  const Text(
+                    'Paiement envoyé, en attente de validation par un administrateur.',
+                    style: TextStyle(color: AppColors.textSecondary),
+                  ),
+              ],
+            );
+          },
         ),
       ),
     );

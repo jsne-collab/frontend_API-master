@@ -133,8 +133,15 @@ class _PaymentDetailScreenState extends ConsumerState<PaymentDetailScreen> {
                     if (payment.paymentMethod != null)
                       _InfoRow(
                         label: 'Moyen de paiement',
-                        value: payment.paymentMethod!.provider != null
-                            ? '${payment.paymentMethod!.type.label} (${payment.paymentMethod!.provider})'
+                        // Le nom de l'opérateur (T-Money, Moov Money) est
+                        // préféré au libellé générique "Mobile Money" —
+                        // n'est vide que pour d'anciens paiements enregistrés
+                        // avant l'audit du 13/08/2026, ou pour un virement
+                        // bancaire/espèces qui n'ont pas d'opérateur.
+                        value:
+                            payment.paymentMethod!.provider != null &&
+                                payment.paymentMethod!.provider!.isNotEmpty
+                            ? payment.paymentMethod!.provider!
                             : payment.paymentMethod!.type.label,
                       ),
                     if (payment.reference != null)

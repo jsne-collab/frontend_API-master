@@ -27,11 +27,10 @@ class _PaymentInitiateScreenState extends ConsumerState<PaymentInitiateScreen> {
   final _periodController = TextEditingController(
     text: DateFormat('yyyy-MM').format(DateTime.now()),
   );
-  final _providerController = TextEditingController();
   final _accountController = TextEditingController();
 
   Lease? _selectedLease;
-  PaymentMethodType _methodType = PaymentMethodType.mobileMoney;
+  PaymentMethodChoice _methodChoice = PaymentMethodChoice.tMoney;
   bool _isSubmitting = false;
   String? _errorMessage;
 
@@ -39,7 +38,6 @@ class _PaymentInitiateScreenState extends ConsumerState<PaymentInitiateScreen> {
   void dispose() {
     _amountController.dispose();
     _periodController.dispose();
-    _providerController.dispose();
     _accountController.dispose();
     super.dispose();
   }
@@ -61,9 +59,9 @@ class _PaymentInitiateScreenState extends ConsumerState<PaymentInitiateScreen> {
         'lease_id': _selectedLease!.id,
         'amount': double.parse(_amountController.text),
         'period_covered': _periodController.text.trim(),
-        'method_type': _methodType.apiValue,
-        if (_providerController.text.trim().isNotEmpty)
-          'method_provider': _providerController.text.trim(),
+        'method_type': _methodChoice.apiType.apiValue,
+        if (_methodChoice.providerName != null)
+          'method_provider': _methodChoice.providerName,
         if (_accountController.text.trim().isNotEmpty)
           'method_account_number': _accountController.text.trim(),
       });
@@ -181,26 +179,21 @@ class _PaymentInitiateScreenState extends ConsumerState<PaymentInitiateScreen> {
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(height: 8),
-                DropdownButtonFormField<PaymentMethodType>(
-                  initialValue: _methodType,
-                  items: PaymentMethodType.values
+                DropdownButtonFormField<PaymentMethodChoice>(
+                  initialValue: _methodChoice,
+                  items: PaymentMethodChoice.values
                       .map(
-                        (type) => DropdownMenuItem(
-                          value: type,
-                          child: Text(type.label),
+                        (choice) => DropdownMenuItem(
+                          value: choice,
+                          child: Text(choice.label),
                         ),
                       )
                       .toList(),
                   onChanged: (value) {
-                    if (value != null) setState(() => _methodType = value);
+                    if (value != null) setState(() => _methodChoice = value);
                   },
                 ),
-                if (_methodType != PaymentMethodType.cash) ...[
-                  const SizedBox(height: 16),
-                  AppTextField(
-                    label: 'Opérateur (ex. Flooz, T-Money)',
-                    controller: _providerController,
-                  ),
+                if (_methodChoice != PaymentMethodChoice.cash) ...[
                   const SizedBox(height: 16),
                   AppTextField(
                     label: 'Numéro de compte / téléphone',

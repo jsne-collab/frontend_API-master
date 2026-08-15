@@ -1,7 +1,4 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
-/// Wrapper autour de flutter_secure_storage pour le token d'authentification
-/// et le rôle de l'utilisateur courant.
 class SecureStorage {
   SecureStorage._();
 

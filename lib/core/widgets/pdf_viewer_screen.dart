@@ -21,6 +21,7 @@ class PdfViewerScreen extends StatefulWidget {
   final String title;
   final String pdfUrl;
 
+  ///ecran pour afficher les pdfs
   @override
   State<PdfViewerScreen> createState() => _PdfViewerScreenState();
 }

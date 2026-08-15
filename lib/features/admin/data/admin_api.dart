@@ -7,7 +7,6 @@ import '../../../core/network/dio_client.dart';
 class AdminApi {
   Dio get _dio => DioClient.instance.dio;
 
-  /// `data` est une liste ici (une ligne par propriétaire), pas un objet.
   Future<List<dynamic>> listOwners() => _getList('/admin/owners');
 
   Future<Map<String, dynamic>> showOwner(int ownerId) =>

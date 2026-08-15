@@ -6,12 +6,17 @@ import 'package:gestion_locative/features/subscription/data/subscription_reposit
 import 'package:gestion_locative/features/subscription/domain/subscription_provider.dart';
 import 'package:gestion_locative/features/subscription/presentation/screens/subscription_screen.dart';
 
+const _plans = {
+  'monthly': {'label': 'Mensuel', 'amount': 10000},
+  'yearly': {'label': 'Annuel', 'amount': 50000},
+};
+
 class _NeverPaidApi extends SubscriptionApi {
   @override
   Future<Map<String, dynamic>> show() async => {
     'success': true,
     'message': '',
-    'data': {'status': 'never', 'next_due_date': null, 'amount': 5000},
+    'data': {'status': 'never', 'next_due_date': null, 'plans': _plans},
   };
 }
 
@@ -23,7 +28,7 @@ class _PendingApi extends SubscriptionApi {
     'data': {
       'status': 'pending',
       'next_due_date': '2026-08-01',
-      'amount': 5000,
+      'plans': _plans,
     },
   };
 }

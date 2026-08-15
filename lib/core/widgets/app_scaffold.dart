@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../features/auth/domain/auth_provider.dart';
 import '../../features/auth/domain/user_model.dart';
 import '../theme/app_colors.dart';
-
+///champ de tets personnalisé
 class _TabDestination {
   const _TabDestination({
     required this.route,

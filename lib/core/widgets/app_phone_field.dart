@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
 
-/// Champ téléphone avec sélecteur d'indicatif pays (drapeaux) — Togo (+228)
-/// présélectionné par défaut puisque c'est le public principal de l'app,
-/// mais tout autre pays reste choisissable.
+/// saisit d'un numéro de téléphone international, avec indicatif et validation.
 class AppPhoneField extends StatelessWidget {
   const AppPhoneField({
     super.key,

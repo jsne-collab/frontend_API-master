@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Logo responsive pour les écrans sur fond clair (Connexion, Inscription) :
-/// icône seule (badge navy + marque dorée) en `compact`, lockup complet
-/// (icône + nom) dès `medium`/`expanded` où la place verticale ne manque
-/// plus. Toujours `BoxFit.contain`, jamais étiré.
+///  en‑tête avec ton logo ou identité visuelle
 class BrandedHeader extends StatelessWidget {
   const BrandedHeader({
     super.key,

@@ -7,6 +7,9 @@ class OwnerDashboard {
     required this.monthlyRevenue,
     required this.previousMonthRevenue,
     required this.revenueVariationPercent,
+    required this.totalRevenue,
+    required this.totalExpenses,
+    required this.netBalance,
     required this.occupancyRate,
     required this.pendingPaymentsCount,
     required this.availablePropertiesCount,
@@ -21,6 +24,9 @@ class OwnerDashboard {
       previousMonthRevenue: (json['previous_month_revenue'] as num).toDouble(),
       revenueVariationPercent: (json['revenue_variation_percent'] as num)
           .toDouble(),
+      totalRevenue: (json['total_revenue'] as num).toDouble(),
+      totalExpenses: (json['total_expenses'] as num).toDouble(),
+      netBalance: (json['net_balance'] as num).toDouble(),
       occupancyRate: (json['occupancy_rate'] as num).toDouble(),
       pendingPaymentsCount: json['pending_payments_count'] as int,
       availablePropertiesCount: json['available_properties_count'] as int,
@@ -39,6 +45,12 @@ class OwnerDashboard {
   final double monthlyRevenue;
   final double previousMonthRevenue;
   final double revenueVariationPercent;
+  // "Toutes périodes confondues" (contrairement à monthlyRevenue/previousMonthRevenue
+  // qui ne portent que sur le mois en cours/précédent) — calculées côté backend
+  // pour éviter de comparer des périodes différentes (voir CLAUDE.md D.4).
+  final double totalRevenue;
+  final double totalExpenses;
+  final double netBalance;
   final double occupancyRate;
   final int pendingPaymentsCount;
   final int availablePropertiesCount;

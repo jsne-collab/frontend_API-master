@@ -17,7 +17,7 @@ class StatusBadge extends StatelessWidget {
     StatusTone.error => AppColors.error,
     StatusTone.neutral => AppColors.textSecondary,
   };
-
+///petit badge pour indiquer le statut d'un élément (paiement, bail, maintenance...) avec un code couleur
   @override
   Widget build(BuildContext context) {
     return Container(

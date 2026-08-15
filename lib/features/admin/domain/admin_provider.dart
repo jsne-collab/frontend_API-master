@@ -25,7 +25,6 @@ class AdminOwnersController extends AsyncNotifier<List<OwnerOverview>> {
     );
   }
 
-  /// Voir `OwnerDashboardController.clear` (dashboard/domain/dashboard_provider.dart).
   void clear() {
     state = const AsyncLoading();
   }
