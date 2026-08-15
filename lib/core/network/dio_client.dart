@@ -4,7 +4,7 @@ import '../storage/secure_storage.dart';
 const String _explicitBaseUrl = String.fromEnvironment('API_BASE_URL');
 
 /// Hôte par défaut (backend déployé en production).
-const String _candidateHost = 'https://immo.defconenterprise.com';
+const String _candidateHost = 'https://immo-api-master-8.onrender.com/';
 
 /// client HTTP quon utilise pour faire des requetes HTTP vers le backend. Il est basé sur la librairie Dio et est configuré avec l'URL de base, les délais de connexion et de réception, et les en-têtes par défaut. Il gère également l'ajout du token d'authentification aux requêtes et la gestion des erreurs 401 (non autorisé) en effaçant le token stocké et en appelant un callback.
 class DioClient {
