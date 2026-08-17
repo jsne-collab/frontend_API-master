@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: mysql
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
