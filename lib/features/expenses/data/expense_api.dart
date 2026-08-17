@@ -8,19 +8,19 @@ class ExpenseApi {
   Dio get _dio => DioClient.instance.dio;
 
   Future<Map<String, dynamic>> listOwn({Map<String, dynamic>? filters}) =>
-      _get('/expenses', query: filters);
+      _get('expenses', query: filters);
 
-  Future<Map<String, dynamic>> show(int id) => _get('/expenses/$id');
+  Future<Map<String, dynamic>> show(int id) => _get('expenses/$id');
 
   Future<Map<String, dynamic>> create(Map<String, dynamic> data) =>
-      _post('/expenses', data);
+      _post('expenses', data);
 
   Future<Map<String, dynamic>> update(int id, Map<String, dynamic> data) =>
-      _put('/expenses/$id', data);
+      _put('expenses/$id', data);
 
   Future<void> delete(int id) async {
     try {
-      await _dio.delete('/expenses/$id');
+      await _dio.delete('expenses/$id');
     } on DioException catch (e) {
       throw ApiException.fromDioException(e);
     }

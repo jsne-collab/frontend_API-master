@@ -8,10 +8,9 @@ class MaintenanceApi {
   Dio get _dio => DioClient.instance.dio;
 
   Future<Map<String, dynamic>> listOwn({Map<String, dynamic>? filters}) =>
-      _get('/maintenance-requests', query: filters);
+      _get('maintenance-requests', query: filters);
 
-  Future<Map<String, dynamic>> show(int id) =>
-      _get('/maintenance-requests/$id');
+  Future<Map<String, dynamic>> show(int id) => _get('maintenance-requests/$id');
 
   Future<Map<String, dynamic>> create(
     Map<String, dynamic> data, {
@@ -19,7 +18,7 @@ class MaintenanceApi {
   }) async {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
-        '/maintenance-requests',
+        'maintenance-requests',
         data: photoPath != null
             ? FormData.fromMap({
                 ...data,
@@ -34,21 +33,21 @@ class MaintenanceApi {
   }
 
   Future<Map<String, dynamic>> update(int id, Map<String, dynamic> data) =>
-      _put('/maintenance-requests/$id', data);
+      _put('maintenance-requests/$id', data);
 
   Future<void> delete(int id) async {
     try {
-      await _dio.delete('/maintenance-requests/$id');
+      await _dio.delete('maintenance-requests/$id');
     } on DioException catch (e) {
       throw ApiException.fromDioException(e);
     }
   }
 
   Future<Map<String, dynamic>> updateStatus(int id, String status) =>
-      _put('/maintenance-requests/$id/status', {'status': status});
+      _put('maintenance-requests/$id/status', {'status': status});
 
   Future<Map<String, dynamic>> addComment(int id, String comment) =>
-      _post('/maintenance-requests/$id/comments', {'comment': comment});
+      _post('maintenance-requests/$id/comments', {'comment': comment});
 
   Future<Map<String, dynamic>> _get(
     String path, {

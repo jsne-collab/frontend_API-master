@@ -10,17 +10,17 @@ class ProfileApi {
   Future<Map<String, dynamic>> updateProfile(
     int userId,
     Map<String, dynamic> data,
-  ) => _put('/users/$userId', data);
+  ) => _put('users/$userId', data);
 
   Future<Map<String, dynamic>> updatePassword(
     int userId,
     Map<String, dynamic> data,
-  ) => _put('/users/$userId/password', data);
+  ) => _put('users/$userId/password', data);
 
   Future<Map<String, dynamic>> uploadAvatar(int userId, String filePath) async {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
-        '/users/$userId/avatar',
+        'users/$userId/avatar',
         data: FormData.fromMap({
           'avatar': await MultipartFile.fromFile(filePath),
         }),

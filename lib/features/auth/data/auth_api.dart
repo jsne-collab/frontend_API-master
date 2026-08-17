@@ -14,7 +14,7 @@ class AuthApi {
     required String password,
     required String passwordConfirmation,
     required String role,
-  }) => _post('/auth/register', {
+  }) => _post('auth/register', {
     'name': name,
     'email': email,
     'phone': phone,
@@ -30,38 +30,38 @@ class AuthApi {
   Future<Map<String, dynamic>> login({
     required String login,
     required String password,
-  }) => _post('/auth/login', {'login': login, 'password': password});
+  }) => _post('auth/login', {'login': login, 'password': password});
 
   Future<Map<String, dynamic>> google({
     required String idToken,
     String deviceType = 'android',
-  }) => _post('/auth/google', {'id_token': idToken, 'device_type': deviceType});
+  }) => _post('auth/google', {'id_token': idToken, 'device_type': deviceType});
 
   Future<Map<String, dynamic>> completeProfile({
     required String role,
     required String phone,
-  }) => _put('/auth/complete-profile', {
+  }) => _put('auth/complete-profile', {
     'role': role,
     'phone': phone,
     'terms_accepted': true,
     'privacy_accepted': true,
   });
 
-  Future<void> logout() => _post('/auth/logout', const {});
+  Future<void> logout() => _post('auth/logout', const {});
 
-  Future<Map<String, dynamic>> refresh() => _post('/auth/refresh', const {});
+  Future<Map<String, dynamic>> refresh() => _post('auth/refresh', const {});
 
-  Future<Map<String, dynamic>> me() => _get('/auth/me');
+  Future<Map<String, dynamic>> me() => _get('auth/me');
 
   Future<void> forgotPassword(String email) =>
-      _post('/auth/forgot-password', {'email': email});
+      _post('auth/forgot-password', {'email': email});
 
   Future<void> resetPassword({
     required String email,
     required String token,
     required String password,
     required String passwordConfirmation,
-  }) => _post('/auth/reset-password', {
+  }) => _post('auth/reset-password', {
     'email': email,
     'token': token,
     'password': password,
@@ -71,7 +71,7 @@ class AuthApi {
   Future<Map<String, dynamic>> verifyEmail({
     required String email,
     required String code,
-  }) => _post('/auth/verify-email', {'email': email, 'code': code});
+  }) => _post('auth/verify-email', {'email': email, 'code': code});
 
   Future<Map<String, dynamic>> _post(
     String path,

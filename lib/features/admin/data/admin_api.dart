@@ -7,13 +7,13 @@ import '../../../core/network/dio_client.dart';
 class AdminApi {
   Dio get _dio => DioClient.instance.dio;
 
-  Future<List<dynamic>> listOwners() => _getList('/admin/owners');
+  Future<List<dynamic>> listOwners() => _getList('admin/owners');
 
   Future<Map<String, dynamic>> showOwner(int ownerId) =>
-      _get('/admin/owners/$ownerId');
+      _get('admin/owners/$ownerId');
 
   Future<Map<String, dynamic>> validateSubscription(int subscriptionId) =>
-      _put('/admin/subscriptions/$subscriptionId/validate');
+      _put('admin/subscriptions/$subscriptionId/validate');
 
   Future<List<dynamic>> _getList(String path) async {
     try {

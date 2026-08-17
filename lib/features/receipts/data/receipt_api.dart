@@ -7,12 +7,12 @@ import '../../../core/network/dio_client.dart';
 class ReceiptApi {
   Dio get _dio => DioClient.instance.dio;
 
-  Future<Map<String, dynamic>> listOwn() => _get('/receipts');
+  Future<Map<String, dynamic>> listOwn() => _get('receipts');
 
-  Future<Map<String, dynamic>> show(int id) => _get('/receipts/$id');
+  Future<Map<String, dynamic>> show(int id) => _get('receipts/$id');
 
   Future<Map<String, dynamic>> download(int id) =>
-      _get('/receipts/$id/download');
+      _get('receipts/$id/download');
 
   Future<Map<String, dynamic>> _get(String path) async {
     try {

@@ -7,20 +7,20 @@ import '../../../core/network/dio_client.dart';
 class MessageApi {
   Dio get _dio => DioClient.instance.dio;
 
-  Future<Map<String, dynamic>> conversations() => _get('/conversations');
+  Future<Map<String, dynamic>> conversations() => _get('conversations');
 
   Future<Map<String, dynamic>> messages(int otherUserId) =>
-      _get('/conversations/$otherUserId/messages');
+      _get('conversations/$otherUserId/messages');
 
   Future<Map<String, dynamic>> send(Map<String, dynamic> data) =>
-      _post('/messages', data);
+      _post('messages', data);
 
   Future<Map<String, dynamic>> markRead(int id) =>
-      _put('/messages/$id/read', {});
+      _put('messages/$id/read', {});
 
   Future<void> delete(int id) async {
     try {
-      await _dio.delete('/messages/$id');
+      await _dio.delete('messages/$id');
     } on DioException catch (e) {
       throw ApiException.fromDioException(e);
     }

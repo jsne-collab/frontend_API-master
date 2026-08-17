@@ -7,24 +7,24 @@ import '../../../core/network/dio_client.dart';
 class PropertyApi {
   Dio get _dio => DioClient.instance.dio;
 
-  Future<Map<String, dynamic>> listOwn() => _get('/properties');
+  Future<Map<String, dynamic>> listOwn() => _get('properties');
 
-  Future<Map<String, dynamic>> listAvailable() => _get('/properties/available');
+  Future<Map<String, dynamic>> listAvailable() => _get('properties/available');
 
   Future<Map<String, dynamic>> search(Map<String, dynamic> filters) =>
-      _get('/properties/search', query: filters);
+      _get('properties/search', query: filters);
 
-  Future<Map<String, dynamic>> show(int id) => _get('/properties/$id');
+  Future<Map<String, dynamic>> show(int id) => _get('properties/$id');
 
   Future<Map<String, dynamic>> create(Map<String, dynamic> data) =>
-      _post('/properties', data);
+      _post('properties', data);
 
   Future<Map<String, dynamic>> update(int id, Map<String, dynamic> data) =>
-      _put('/properties/$id', data);
+      _put('properties/$id', data);
 
   Future<void> delete(int id) async {
     try {
-      await _dio.delete('/properties/$id');
+      await _dio.delete('properties/$id');
     } on DioException catch (e) {
       throw ApiException.fromDioException(e);
     }
@@ -37,7 +37,7 @@ class PropertyApi {
   }) async {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
-        '/properties/$propertyId/images',
+        'properties/$propertyId/images',
         data: FormData.fromMap({
           'image': await MultipartFile.fromFile(filePath),
           'is_primary': isPrimary ? '1' : '0',

@@ -4,7 +4,7 @@ import '../storage/secure_storage.dart';
 /// URL de base du backend déployé sur Render.
 /// Tu peux aussi surcharger avec --dart-define=API_BASE_URL=...
 const String _explicitBaseUrl = String.fromEnvironment('API_BASE_URL');
-const String _defaultHost = 'https://immo-api-master-8.onrender.com/';
+const String _defaultHost = 'https://immo-api-master-8.onrender.com/api/v1/';
 
 class DioClient {
   DioClient._internal() {

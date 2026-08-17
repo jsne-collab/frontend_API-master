@@ -7,17 +7,17 @@ import '../../../core/network/dio_client.dart';
 class NotificationApi {
   Dio get _dio => DioClient.instance.dio;
 
-  Future<Map<String, dynamic>> list() => _get('/notifications');
+  Future<Map<String, dynamic>> list() => _get('notifications');
 
   Future<Map<String, dynamic>> markRead(int id) =>
-      _put('/notifications/$id/read', {});
+      _put('notifications/$id/read', {});
 
   Future<Map<String, dynamic>> markAllRead() =>
-      _put('/notifications/read-all', {});
+      _put('notifications/read-all', {});
 
   Future<void> delete(int id) async {
     try {
-      await _dio.delete('/notifications/$id');
+      await _dio.delete('notifications/$id');
     } on DioException catch (e) {
       throw ApiException.fromDioException(e);
     }

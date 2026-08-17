@@ -8,10 +8,10 @@ import '../../../core/network/dio_client.dart';
 class SubscriptionApi {
   Dio get _dio => DioClient.instance.dio;
 
-  Future<Map<String, dynamic>> show() => _get('/subscription');
+  Future<Map<String, dynamic>> show() => _get('subscription');
 
   Future<Map<String, dynamic>> initiate(Map<String, dynamic> data) =>
-      _post('/subscription/initiate', data);
+      _post('subscription/initiate', data);
 
   Future<Map<String, dynamic>> _get(String path) async {
     try {

@@ -8,28 +8,28 @@ class PaymentApi {
   Dio get _dio => DioClient.instance.dio;
 
   Future<Map<String, dynamic>> listOwn({Map<String, dynamic>? filters}) =>
-      _get('/payments', query: filters);
+      _get('payments', query: filters);
 
   Future<Map<String, dynamic>> history({Map<String, dynamic>? filters}) =>
-      _get('/payments/history', query: filters);
+      _get('payments/history', query: filters);
 
   Future<Map<String, dynamic>> stats({Map<String, dynamic>? filters}) =>
-      _get('/payments/stats', query: filters);
+      _get('payments/stats', query: filters);
 
-  Future<Map<String, dynamic>> show(int id) => _get('/payments/$id');
+  Future<Map<String, dynamic>> show(int id) => _get('payments/$id');
 
   Future<Map<String, dynamic>> create(Map<String, dynamic> data) =>
-      _post('/payments', data);
+      _post('payments', data);
 
   Future<Map<String, dynamic>> initiate(Map<String, dynamic> data) =>
-      _post('/payments/initiate', data);
+      _post('payments/initiate', data);
 
   Future<Map<String, dynamic>> update(int id, Map<String, dynamic> data) =>
-      _put('/payments/$id', data);
+      _put('payments/$id', data);
 
   Future<void> delete(int id) async {
     try {
-      await _dio.delete('/payments/$id');
+      await _dio.delete('payments/$id');
     } on DioException catch (e) {
       throw ApiException.fromDioException(e);
     }
